@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { MapPin, Phone, Clock, Send, CheckCircle } from "lucide-react"
 import { useState } from "react"
+import { sendMail } from "@/util/sendMail"
+import { subscriber } from "@/services/mutation/subscriber"
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" })
@@ -20,13 +22,22 @@ export function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    await sendMail(
+      {
+        to:'walteralexandresantana@gmail.com',
+        text: formData.message,
+        subject: 'Mensagem de Sara3com',
+        html: `
+          <span>Name: <b>${formData.name}</b></span><br>
+          <span>E-mail: <b>${formData.email}</b></span><br>
+          <hr />
+          <p>${formData.message}</p>
+        `
+      }
+    )
     setIsSuccess(true)
     setIsSubmitting(false)
-    setTimeout(() => {
-      setFormData({ name: "", email: "", message: "" })
-      setIsSuccess(false)
-    }, 2000)
+    subscriber(formData.email)
   }
 
   const containerVariants = {

@@ -3,8 +3,10 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone, MapPin, MessageCircle, Clock, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
 
 export function Hero() {
+  const router = useRouter()
   
   return (
     <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-24 pb-12">
@@ -91,6 +93,7 @@ export function Hero() {
               <Button
                 variant="outline"
                 size="lg"
+                onClick={() => router.push("/chat")}
                 className="gap-2 border-brand/30 bg-transparent hover:bg-brand/10 hover:border-brand/50"
               >
                 <MessageCircle className="h-4 w-4" />

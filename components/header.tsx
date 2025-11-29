@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { motion, AnimatePresence } from "framer-motion"
+import { useRouter } from "next/navigation"
 
 const navLinks = [
   { name: "Página Inicial", href: "#home" },
@@ -17,6 +18,7 @@ const navLinks = [
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,7 +102,7 @@ export function Header() {
             <ThemeToggle />
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <button
-                onClick={() => handleNavClick("")}
+                onClick={() => router.push("/signin")}
                 className="hidden md:flex px-6 py-2 rounded-full bg-gradient-to-r from-brand to-brand-light text-white border-0 hover:opacity-90 shadow-lg shadow-brand/20 hover:shadow-brand/40 transition-shadow cursor-pointer"
               >
                 Login
@@ -155,6 +157,7 @@ export function Header() {
                   <button
                     onClick={(e) => {
                       e.preventDefault()
+                      router.push("/signin")
                       handleNavClick("")
                     }}
                     className="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-brand to-brand-light text-white font-medium hover:opacity-90 transition-all cursor-pointer shadow-lg shadow-brand/20"

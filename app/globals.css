@@ -161,3 +161,9 @@
 .glass-enhanced {
   @apply bg-background/40 backdrop-blur-lg border border-brand/10 shadow-lg;
 }
+
+
+
+.tabStyle {
+  @apply sm:px-3 border-b-2 h-full cursor-pointer hover:text-primary shadow-none rounded-none bg-transparent border-0 text-sm font-medium  data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary
+}

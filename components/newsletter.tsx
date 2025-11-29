@@ -7,20 +7,42 @@ import { Mail, Check, Send, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { motion } from "framer-motion"
+import { toast } from "./ui/use-toast"
+import { subscriber } from "@/services/mutation/subscriber"
 
 export function Newsletter() {
   const [email, setEmail] = useState("")
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle")
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!email) return
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatus("error")
+      toast({
+        title: "Email inválido",
+        description: "Por favor, insira um endereço de email válido.",
+        variant: "destructive"
+      })
+      return
+    }
 
     setStatus("loading")
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setStatus("success")
-    setEmail("")
-    setTimeout(() => setStatus("idle"), 3000)
+    const res = await subscriber(email)
+    if (res.status) {
+      setStatus("success")
+      toast({
+        title: "Sucesso!",
+        description: "Você foi inscrito na nossa newsletter com sucesso!"
+      })
+      setEmail("")
+      setTimeout(() => setStatus("idle"), 3000)
+    } else {
+      setStatus("error")
+      toast({
+        title: "Erro no subscriber!",
+        description: res.message
+      })
+    }
   }
 
   return (

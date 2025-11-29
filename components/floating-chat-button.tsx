@@ -1,7 +1,8 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
-import { MessageCircle, X } from "lucide-react"
+import { MessageCircle, Send, X } from "lucide-react"
 import { useState } from "react"
 
 export function FloatingChatButton() {
@@ -29,7 +30,11 @@ export function FloatingChatButton() {
       <motion.div
         animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : 20, pointerEvents: isOpen ? "auto" : "none" }}
         transition={{ duration: 0.3 }}
-        className="fixed bottom-24 right-8 z-50 w-80 max-w-sm rounded-lg bg-card/95 backdrop-blur-lg border border-brand/20 shadow-2xl overflow-hidden"
+        className={cn(
+          "fixed bottom-24 right-8 z-50 w-80 max-w-sm",
+          "rounded-lg bg-card/95 backdrop-blur-lg border border-brand/20 shadow-2xl overflow-hidden",
+          `opacity-${isOpen ? 1 : 0}`
+        )}
       >
         <div className="bg-gradient-to-r from-brand to-brand-light p-4 text-white">
           <h3 className="font-semibold text-lg">Sara AI Assistant</h3>
@@ -58,7 +63,7 @@ export function FloatingChatButton() {
             whileTap={{ scale: 0.95 }}
             className="bg-gradient-to-r from-brand to-brand-light text-white px-4 py-2 rounded-lg text-sm font-medium"
           >
-            Enviar
+            <Send size={19} />
           </motion.button>
         </div>
       </motion.div>

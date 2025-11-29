@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Service() {
     return (
         <div className="">
-            <div className="border-b h-[90px]">
+            <div className="border-b border-muted h-[90px]">
                 <div className="m-auto max-w-5xl py-4 flex justify-between items-center">
                     <h1 className="text-5xl">Serviços</h1>
                     <div>

@@ -129,7 +129,7 @@ export default function Subscriber({ className }: { className?: string }) {
             </div>
 
             {filteredData && filteredData.length > 0 ? (
-                <div className="border border-border rounded-lg overflow-hidden">
+                <div className="border border-border rounded-lg overflow-auto">
                     <table className="min-w-full">
                         <thead className="bg-muted">
                             <tr>

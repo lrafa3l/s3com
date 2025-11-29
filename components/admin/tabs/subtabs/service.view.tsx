@@ -89,7 +89,7 @@ export default function ServiceView({ className }: ServiceViewProps) {
           return (
             <Card
               key={service.id}
-              className="relative overflow-hidden hover:shadow-lg =-2 transition-shadow duration-300 flex flex-col min-h-[250px]"
+              className="relative border-muted overflow-hidden hover:shadow-lg =-2 transition-shadow duration-300 flex flex-col min-h-[250px]"
             >
               <CardHeader>
                 <div className="flex items-start justify-between gap-1">
@@ -121,7 +121,7 @@ export default function ServiceView({ className }: ServiceViewProps) {
               </CardContent>
 
               <AlertDialog>
-                <AlertDialogTrigger asChild className="absolute bottom-1 right-1">
+                <AlertDialogTrigger asChild className="absolute border-border bottom-1 right-1">
                   <Button variant="outline">
                     <Icons.Trash2 />
                   </Button>

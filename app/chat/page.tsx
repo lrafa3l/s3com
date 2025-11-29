@@ -248,17 +248,6 @@ const ChatBotDemo: React.FC = () => {
                             {/* Actions only for assistant's last text part */}
                             {message.role === "assistant" && isLast && (
                               <Actions className="mt-2">
-                                <Action
-                                  variant={'outline'}
-                                  className="rounded-full"
-                                  size={'icon'}
-                                  onClick={() => {
-                                    if (message.id) regenerate({ messageId: message.id })
-                                    else regenerate()
-                                  }}
-                                >
-                                  <RefreshCcwIcon size={12} />
-                                </Action>
                                 <Action variant={'outline'} className="rounded-full" size={'icon'} onClick={() => handleCopy(part.text)} label="Copy">
                                   <CopyIcon size={12} />
                                 </Action>
