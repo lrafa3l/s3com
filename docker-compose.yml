@@ -1,0 +1,7 @@
+services:
+  sara3com:
+    container_name: sara3com
+    build: ./
+    restart: unless-stopped
+    env_file:
+      - .env

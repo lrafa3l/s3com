@@ -1,0 +1,17 @@
+'use client'
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useEffect } from "react";
+import { cn } from "@/lib/utils";
+
+export default function ServiceView({ className }: { className?: string }) {
+    const router = useRouter();
+
+
+    return (
+        <div>
+            <h1>testr</h1>
+        </div>
+    )
+}

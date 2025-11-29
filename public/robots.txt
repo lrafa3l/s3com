@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://sara3com.vercel.app
+
+# Sitemaps
+Sitemap: https://sara3com.vercel.app/sitemap.xml
