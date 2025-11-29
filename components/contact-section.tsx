@@ -72,9 +72,22 @@ export function ContactSection() {
           className="text-center mb-16"
         >
           <motion.div variants={itemVariants}>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand/10 border border-brand/20 text-brand text-sm font-medium mb-4">
-              Entre em Contato
-            </span>
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-gradient-to-r from-primary/10 to-primary/20 text-sm font-medium text-primary group hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/20 hover:to-primary/30 transition-all cursor-pointer shadow-lg glow-effect"
+            >
+              {/* Animated Glowing Dot */}
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                className="h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand-light"
+              />
+
+              {/* Button Text */}
+              <span className="bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent font-semibold">Entre em Contato</span>
+            </motion.div>
           </motion.div>
           <motion.h2
             variants={itemVariants}

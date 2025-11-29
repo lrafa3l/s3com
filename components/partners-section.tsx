@@ -24,12 +24,29 @@ export function PartnersSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-2">Nossos Parceiros</p>
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-gradient-to-r from-primary/10 to-primary/20 text-sm font-medium text-primary group hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/20 hover:to-primary/30 transition-all cursor-pointer shadow-lg glow-effect"
+          >
+            {/* Animated Glowing Dot */}
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+              className="h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand-light"
+            />
+
+            {/* Text */}
+            <span className="bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent font-semibold">
+              Nossos Parceiros
+            </span>
+          </motion.div>
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
             Confiados por Milhares de Empresas Produtivas
           </h2>
           <p className="text-muted-foreground max-w-md mx-auto">
-            As melhores organizações escolhem a SARA3COM para conectividade premium
+            As melhores organizações escolhem a Sara3com para conectividade premium
           </p>
         </motion.div>
 

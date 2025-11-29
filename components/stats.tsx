@@ -3,8 +3,8 @@
 import { motion } from "framer-motion"
 
 const stats = [
-  { value: "10+", label: "Anos de Experiência" },
-  { value: "5000+", label: "Clientes Satisfeitos" },
+  { value: "6+", label: "Anos de Experiência" },
+  { value: "198+", label: "Clientes Satisfeitos" },
   { value: "99.9%", label: "Uptime Garantido" },
   { value: "24/7", label: "Suporte Técnico" },
 ]

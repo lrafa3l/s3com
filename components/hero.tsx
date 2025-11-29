@@ -36,7 +36,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand/30 bg-gradient-to-r from-brand/10 to-brand-light/10 px-4 py-2 text-sm group hover:border-brand/50 hover:bg-gradient-to-r hover:from-brand/20 hover:to-brand-light/20 transition-all cursor-pointer shadow-lg glow-effect"
+            className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-gradient-to-r from-primary/10 to-primary/20 text-sm font-medium text-primary group hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/20 hover:to-primary/30 transition-all cursor-pointer shadow-lg glow-effect"
           >
             <motion.span
               animate={{ scale: [1, 1.3, 1] }}

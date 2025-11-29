@@ -87,9 +87,19 @@ export function Pricing() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand/10 border border-brand/20 text-brand text-sm font-medium mb-4">
-              Planos & Preços
-            </span>
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand/20 bg-gradient-to-r from-brand/10 to-brand/20 text-sm font-medium text-brand group hover:border-brand/50 hover:bg-gradient-to-r hover:from-brand/20 hover:to-brand/30 transition-all cursor-pointer shadow-lg glow-effect"
+            >
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                className="h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand-light"
+              />
+              <span className="bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent font-semibold">Planos & Preços</span>
+            </motion.div>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
               Escolha o Plano{" "}
               <span className="bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent">Ideal</span>{" "}
@@ -109,11 +119,10 @@ export function Pricing() {
           >
             <motion.button
               onClick={() => setBillingCycle("monthly")}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${
-                billingCycle === "monthly"
+              className={`px-6 py-2 rounded-full font-medium transition-all ${billingCycle === "monthly"
                   ? "bg-gradient-to-r from-brand to-brand-light text-white shadow-lg shadow-brand/20"
                   : "text-muted-foreground hover:text-foreground"
-              }`}
+                }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -121,11 +130,10 @@ export function Pricing() {
             </motion.button>
             <motion.button
               onClick={() => setBillingCycle("yearly")}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${
-                billingCycle === "yearly"
+              className={`px-6 py-2 rounded-full font-medium transition-all ${billingCycle === "yearly"
                   ? "bg-gradient-to-r from-brand to-brand-light text-white shadow-lg shadow-brand/20"
                   : "text-muted-foreground hover:text-foreground"
-              }`}
+                }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -144,9 +152,8 @@ export function Pricing() {
               transition={{ delay: index * 0.1 }}
             >
               <Card
-                className={`relative h-full border-border bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-brand/10 ${
-                  plan.popular ? "border-brand ring-2 ring-brand shadow-lg shadow-brand/20" : "hover:border-brand/50"
-                }`}
+                className={`relative h-full border-border bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-brand/10 ${plan.popular ? "border-brand ring-2 ring-brand shadow-lg shadow-brand/20" : "hover:border-brand/50"
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -188,11 +195,10 @@ export function Pricing() {
                     onClick={() => handlePlanSelection(plan.name)}
                   >
                     <Button
-                      className={`mt-8 w-full cursor-pointer ${
-                        plan.popular
+                      className={`mt-8 w-full cursor-pointer ${plan.popular
                           ? "bg-gradient-to-r from-brand to-brand-light text-white border-0 hover:opacity-90 shadow-lg shadow-brand/25"
                           : "border-brand/30 hover:bg-brand/10"
-                      }`}
+                        }`}
                       variant={plan.popular ? "default" : "outline"}
                     >
                       {plan.cta}

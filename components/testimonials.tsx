@@ -44,9 +44,19 @@ export function Testimonials() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
-              Testemunhos
-            </span>
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-gradient-to-r from-primary/10 to-primary/20 text-sm font-medium text-primary group hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/20 hover:to-primary/30 transition-all cursor-pointer shadow-lg glow-effect"
+            >
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                className="h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand-light"
+              />
+              <span className="bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent font-semibold">Testemunhos</span>
+            </motion.div>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
               O Que Dizem os Nossos <span className="gradient-text">Clientes</span>
             </h2>
@@ -141,9 +151,8 @@ export function Testimonials() {
               <button
                 key={index}
                 onClick={() => setActiveIndex(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === activeIndex ? "w-8 bg-primary" : "w-2 bg-primary/30"
-                }`}
+                className={`h-2 rounded-full transition-all duration-300 ${index === activeIndex ? "w-8 bg-primary" : "w-2 bg-primary/30"
+                  }`}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
             ))}

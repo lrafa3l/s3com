@@ -47,10 +47,27 @@ export function Features() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="mx-auto max-w-2xl text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-brand/10 to-brand-light/10 border border-brand/30 text-brand text-sm font-medium mb-4 glow-effect">
-              Produtos & Serviços Alimentados por IA
-            </span>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            {/* Dot with animation */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-gradient-to-r from-primary/10 to-primary/20 text-sm font-medium text-primary group hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/20 hover:to-primary/30 transition-all cursor-pointer shadow-lg glow-effect"
+            >
+              <motion.span
+                animate={{ scale: [1, 1.3, 1] }}
+                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                className="h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand-light"
+              />
+              <span className="bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent font-semibold">
+                Produtos & Serviços
+              </span>
+            </motion.div>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
               Soluções Completas{" "}
               <span className="bg-gradient-to-r from-brand via-brand-light to-brand bg-clip-text text-transparent">

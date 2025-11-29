@@ -75,15 +75,17 @@ export function AboutSection() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={isInView ? { scale: 1, opacity: 1 } : {}}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-4 py-2 mb-6 hover:border-brand/50 hover:bg-brand/15 transition-all shadow-lg"
+            className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-gradient-to-r from-primary/10 to-primary/20 text-sm font-medium text-primary group hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/20 hover:to-primary/30 transition-all cursor-pointer shadow-lg glow-effect"
           >
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-              className="h-2 w-2 rounded-full bg-brand"
+              className="h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand-light"
             />
-            <span className="text-sm font-medium text-brand">Sobre SARA3COM</span>
+            <span className="text-sm font-bold text-brand">Sobre Sara3com</span>
           </motion.div>
+
+
 
           <h2
             id="about-heading"
@@ -136,14 +138,14 @@ export function AboutSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-3"
             >
-              <p className="text-sm sm:text-base leading-relaxed text-foreground/90">
-                A <span className="font-semibold text-brand">SARA3COM-LDA</span> é pioneira em soluções de{" "}
+              <p className="text-sm sm:text-lg leading-relaxed text-foreground/90">
+                A <span className="font-semibold text-brand">Sara3com</span> é pioneira em soluções de{" "}
                 <span className="font-semibold bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent">
                   telecomunicações
                 </span>{" "}
                 em Angola.
               </p>
-              <p className="text-xs sm:text-sm leading-relaxed text-foreground/80">
+              <p className="text-xs sm:text-lg leading-relaxed text-foreground/80">
                 Oferecemos infraestrutura de classe mundial, internet de alta velocidade, telefonia confiável e
                 segurança de rede avançada.
               </p>
@@ -163,14 +165,14 @@ export function AboutSection() {
                   <motion.div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div className="relative">
                     <motion.div
-                      className="text-lg sm:text-xl font-bold bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent tabular-nums"
+                      className="text-lg sm:text-lg font-bold bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent tabular-nums"
                       initial={{ scale: 0 }}
                       animate={isInView ? { scale: 1 } : {}}
                       transition={{ duration: 0.6, delay: 0.4 + i * 0.08, type: "spring", stiffness: 100 }}
                     >
                       {isInView && <Counter to={stat.value} suffix={stat.suffix} />}
                     </motion.div>
-                    <p className="mt-0.5 text-xs font-medium text-muted-foreground">{stat.label}</p>
+                    <p className="mt-0.5 text-sm font-medium text-muted-foreground">{stat.label}</p>
                   </div>
                 </motion.div>
               ))}
@@ -183,8 +185,21 @@ export function AboutSection() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center"
         >
-          <h3 className="text-lg sm:text-xl font-bold text-center mb-6 text-foreground">Nossos Valores</h3>
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={isInView ? { scale: 1, opacity: 1 } : {}}
+            transition={{ duration: 0.5 }}
+            className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-gradient-to-r from-primary/10 to-primary/20 text-sm font-medium text-primary group hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/20 hover:to-primary/30 transition-all cursor-pointer shadow-lg glow-effect"
+          >
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+              className="h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand-light"
+            />
+            <span className="text-sm font-bold text-brand text-center">Nossos Valores</span>
+          </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
             {values.map((value, i) => (
               <motion.div
@@ -210,8 +225,8 @@ export function AboutSection() {
                   >
                     {value.icon}
                   </motion.div>
-                  <h4 className="text-xs font-semibold text-foreground">{value.title}</h4>
-                  <p className="text-xs text-foreground/70 leading-tight">{value.description}</p>
+                  <h4 className="text-lg font-semibold text-foreground">{value.title}</h4>
+                  <p className="text-sm text-foreground/70 leading-tight">{value.description}</p>
                 </motion.div>
               </motion.div>
             ))}

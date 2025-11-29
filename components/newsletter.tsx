@@ -49,10 +49,20 @@ export function Newsletter() {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto text-center space-y-6"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-gradient-to-r from-primary/10 to-primary/20 text-sm font-medium text-primary group hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/20 hover:to-primary/30 transition-all cursor-pointer shadow-lg glow-effect"
+          >
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+              className="h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand-light"
+            />
             <Mail className="w-4 h-4" />
-            Mantenha-se Informado
-          </span>
+            <span className="bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent font-semibold">Mantenha-se Informado</span>
+          </motion.div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
             Receba Novidades em{" "}
