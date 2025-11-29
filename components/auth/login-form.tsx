@@ -52,7 +52,7 @@ export default function LoginPageForm() {  // <-- Removido async
         <FieldGroup>
           <div className="flex flex-col items-center gap-2 text-center">
             <a
-              href="#"
+              href="/"
               className="flex flex-col items-center gap-2 font-medium"
             >
               <div className="flex size-8 items-center justify-center rounded-md">
@@ -82,26 +82,6 @@ export default function LoginPageForm() {  // <-- Removido async
             {error && <span style={{ color: "red" }}>{error}</span>}
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Loading..." : "Login"}
-            </Button>
-          </Field>
-
-          <FieldSeparator>Ou continue com</FieldSeparator>
-
-          <Field className="grid gap-4 sm:grid-cols-2">
-            <Button
-              variant="outline"
-              type="button"
-              onClick={() => signIn("github", { callbackUrl: "/" })}
-            >
-              GitHub
-            </Button>
-
-            <Button
-              variant="outline"
-              type="button"
-              onClick={() => signIn("google", { callbackUrl: "/" })}
-            >
-              Google
             </Button>
           </Field>
         </FieldGroup>

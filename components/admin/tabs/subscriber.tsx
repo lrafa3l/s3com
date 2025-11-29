@@ -11,11 +11,9 @@ import { Trash2, Send, Search } from "lucide-react"
 import { deleteSubscribersByIDs } from "@/services/mutation/subscriber"
 import { toast } from "sonner"
 import Compositor from "@/components/services-dialogs/Compositor"
+import Loading from "../layouts/loading"
 
 export default function Subscriber({ className }: { className?: string }) {
-    const router = useRouter()
-    const searchParams = useSearchParams()
-    const pathname = usePathname()
     const queryClient = useQueryClient()
 
     const [selectedEmails, setSelectedEmails] = useState<string[]>([])
@@ -27,16 +25,6 @@ export default function Subscriber({ className }: { className?: string }) {
         queryKey: ["Subscribers"],
         queryFn: () => getSubscriber(),
     })
-
-    const handleTabChange = (value: string) => {
-        const params = new URLSearchParams(searchParams.toString())
-        params.set("tab", value)
-        router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-    }
-
-    useEffect(() => {
-        handleTabChange("subscriber")
-    }, [])
 
     const filteredData = useMemo(() => {
         if (!data) return []
@@ -104,9 +92,7 @@ export default function Subscriber({ className }: { className?: string }) {
         setIsCompositorOpen(true)
     }
 
-    if (isPending) {
-        return <p className="text-center text-muted-foreground">Carregando assinantes...</p>
-    }
+    if (isPending) return <Loading />
 
     if (error) {
         return <p className="text-center text-destructive">Erro ao carregar assinantes: {(error as Error).message}</p>

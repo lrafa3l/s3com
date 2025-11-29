@@ -1,6 +1,6 @@
 "use client"
 
-import { BadgeCheck, Bell, LogOut, Settings, Sparkles } from "lucide-react"
+import { BadgeCheck, LogOut, Settings } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/hooks/useAuth"
 import { getFallbackColor, getInitials } from "@/config/uitl1"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface NavUserProps {
   user: {
@@ -23,6 +24,7 @@ interface NavUserProps {
     avatar: string | null
   } | null
 }
+
 export function NavUser({ user }: NavUserProps) {
   const { signOut } = useAuth()
   const initials = getInitials(user?.name ?? "")
@@ -32,20 +34,22 @@ export function NavUser({ user }: NavUserProps) {
     <div className="flex select-none">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            size="icon"
-            variant="outline"
-            className="rounded-lg p-0 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-          >
-            <Avatar className="h-9 w-9 rounded-lg">
-              <AvatarImage src={user?.avatar ?? ""} alt={user?.name ?? ""} />
-              <AvatarFallback
-                className={cn("rounded-lg text-black", fallbackColor)}
-              >
-                {initials}
-              </AvatarFallback>
-            </Avatar>
-          </Button>
+          {user?.name ?
+            <Button
+              size="icon"
+              variant="outline"
+              className="rounded-lg p-0 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+            >
+              <Avatar className="h-9 w-9 rounded-lg">
+                <AvatarImage src={user?.avatar ?? ""} alt={user?.name ?? ""} />
+                <AvatarFallback
+                  className={cn("rounded-lg text-black", fallbackColor)}
+                >
+                  {initials}
+                </AvatarFallback>
+              </Avatar>
+            </Button> : <Skeleton className="w-9 h-9 rounded-lg bg-sidebar" />
+          }
         </DropdownMenuTrigger>
         <DropdownMenuContent
           className="min-w-56 rounded-lg"
@@ -55,13 +59,13 @@ export function NavUser({ user }: NavUserProps) {
           <DropdownMenuLabel className="p-0 font-normal">
             <div className="flex items-center gap-2 px-1 py-1.5 text-sm">
               <Avatar className="h-9 w-9 rounded-lg">
-              <AvatarImage src={user?.avatar ?? ""} alt={user?.name ?? ""} />
-              <AvatarFallback
-                className={cn("rounded-lg text-black", fallbackColor)}
-              >
-                {initials}
-              </AvatarFallback>
-            </Avatar>
+                <AvatarImage src={user?.avatar ?? ""} alt={user?.name ?? ""} />
+                <AvatarFallback
+                  className={cn("rounded-lg text-black", fallbackColor)}
+                >
+                  {initials}
+                </AvatarFallback>
+              </Avatar>
               <div className="grid flex-1 text-left leading-tight">
                 <span className="truncate font-medium">{user?.name}</span>
                 <span className="truncate text-xs text-muted-foreground">
@@ -73,35 +77,9 @@ export function NavUser({ user }: NavUserProps) {
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <Sparkles className="mr-2 h-4 w-4" />
-              Upgrade to Pro
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-
-          <DropdownMenuSeparator />
-
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <BadgeCheck className="mr-2 h-4 w-4" />
-              Account
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-              Settings
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Bell className="mr-2 h-4 w-4" />
-              Notifications
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-
-          <DropdownMenuSeparator />
-
           <DropdownMenuItem onClick={async () => signOut()}>
             <LogOut className="mr-2 h-4 w-4" />
-            Log out
+            Terminar sessão
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

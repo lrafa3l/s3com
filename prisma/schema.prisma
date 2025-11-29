@@ -87,9 +87,8 @@ model Article {
 model Service {
   id          String   @id @default(cuid())
   name        String
-  slug        String   @unique
-  description String
-  image       String?   // URL de uma imagem do serviço
+  description String?
+  icon        String? // URL de uma imagem do serviço
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -98,14 +98,14 @@ export function Header() {
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <button
-                onClick={() => handleNavClick("#contact")}
-                className="hidden md:flex px-6 py-2 rounded-lg bg-gradient-to-r from-brand to-brand-light text-white border-0 hover:opacity-90 shadow-lg shadow-brand/20 hover:shadow-brand/40 transition-shadow cursor-pointer"
+                onClick={() => handleNavClick("")}
+                className="hidden md:flex px-6 py-2 rounded-full bg-gradient-to-r from-brand to-brand-light text-white border-0 hover:opacity-90 shadow-lg shadow-brand/20 hover:shadow-brand/40 transition-shadow cursor-pointer"
               >
-                Contactar
+                Login
               </button>
-            </motion.div> */}
+            </motion.div>
 
             <motion.button
               className="lg:hidden p-2 rounded-lg hover:bg-brand/10 transition-colors"
@@ -152,16 +152,16 @@ export function Header() {
                 ))}
 
                 <motion.div variants={itemVariants} className="pt-2 flex flex-col gap-3">
-                  {/* <button
+                  <button
                     onClick={(e) => {
                       e.preventDefault()
-                      handleNavClick("#contact")
+                      handleNavClick("")
                     }}
                     className="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-brand to-brand-light text-white font-medium hover:opacity-90 transition-all cursor-pointer shadow-lg shadow-brand/20"
                   >
-                    Contactar
-                  </button> */}
-                  <button
+                    Login
+                  </button>
+                  {/* <button
                     onClick={(e) => {
                       e.preventDefault()
                       handleNavClick("#pricing")
@@ -169,7 +169,7 @@ export function Header() {
                     className="w-full px-4 py-3 rounded-lg border-2 border-brand/30 text-brand font-medium hover:bg-brand/5 transition-all cursor-pointer"
                   >
                     Ver Nossos Planos
-                  </button>
+                  </button> */}
                 </motion.div>
               </motion.nav>
             </motion.div>

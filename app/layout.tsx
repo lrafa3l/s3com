@@ -1,16 +1,20 @@
 import type React from "react"
 import type { Metadata } from "next"
-
+import { Ubuntu } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
-import { Inter, Geist_Mono, Ubuntu as Font_Ubuntu, Geist_Mono as Font_Geist_Mono } from 'next/font/google'
+import QueryClientProviderMain from "@/providers/QueryClientProvider"
+import AuthProviderMain from "@/providers/AuthProvider"
+import { ProgressProvider } from "@/providers/ProgressProvider"
+import { Toaster } from "sonner"
+import { ThemeProvider } from "@/providers/theme-provider"
 
-// Initialize fonts
-const _ubuntu = Font_Ubuntu({ subsets: ['latin'], weight: ["300","400","500","700"] })
-const _geistMono = Font_Geist_Mono({ subsets: ['latin'], weight: ["100","200","300","400","500","600","700","800","900"] })
+const ubuntu = Ubuntu({
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-ubuntu",
+})
 
-const _inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Sara3com",
   description:
@@ -79,6 +83,7 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -86,10 +91,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt" suppressHydrationWarning>
-      <body className="font-sans antialiased">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+      <body className={`${ubuntu.variable} font-ubuntu antialiased`}>
+        <QueryClientProviderMain>
+          <AuthProviderMain>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <ProgressProvider>
+                {children}
+                <Toaster />
+              </ProgressProvider>
+            </ThemeProvider>
+          </AuthProviderMain>
+        </QueryClientProviderMain>
         <Analytics />
       </body>
     </html>

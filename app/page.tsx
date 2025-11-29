@@ -13,28 +13,35 @@ import { ContactSection } from "@/components/contact-section"
 import { PartnersSection } from "@/components/partners-section"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { FloatingChatButton } from "@/components/floating-chat-button"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+import AdminPage from "./admin/page"
 
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-background">
-      <ScrollProgress />
-      <Background>
-        <FloatingElements />
-        <Header />
-        <main>
-          <Hero />
-          <Stats />
-          <Features />
-          <AboutSection />
-          <Testimonials />
-          <Pricing />
-          <PartnersSection />
-          <ContactSection />
-          <Newsletter />
-        </main>
-        <Footer />
-        <FloatingChatButton />
-      </Background>
-    </div>
-  )
+export default async function Home({ searchParams }: { searchParams?: Record<string, string | undefined> }) {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    return (
+      <div className="min-h-screen bg-background">
+        <ScrollProgress />
+        <Background>
+          <FloatingElements />
+          <Header />
+          <main>
+            <Hero />
+            <Stats />
+            <Features />
+            <AboutSection />
+            <Testimonials />
+            <Pricing />
+            <PartnersSection />
+            <ContactSection />
+            <Newsletter />
+          </main>
+          <Footer />
+          <FloatingChatButton />
+        </Background>
+      </div>
+    )
+  }
+  return <AdminPage searchParams={searchParams} />
 }

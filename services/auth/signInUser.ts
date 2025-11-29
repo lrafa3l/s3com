@@ -12,7 +12,6 @@ export async function signInUser(formData: FormData) {
     return { success: false, message: "Email/Username e senha são obrigatórios" }
   }
 
-  // Buscar usuário por email ou username (case-insensitive)
   const user = await prisma.user.findFirst({
     where: {
       OR: [
@@ -35,6 +34,5 @@ export async function signInUser(formData: FormData) {
     return { success: false, message: "Senha incorreta" }
   }
 
-  // Se login válido, redireciona
   redirect("/dashboard")
 }

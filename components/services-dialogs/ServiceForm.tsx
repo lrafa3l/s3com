@@ -15,19 +15,18 @@ import {
     AlertDialogDescription,
     AlertDialogFooter,
 } from "@/components/ui/alert-dialog"
-import { service } from "@/services/mutation/service"
+import { createService } from "@/services/mutation/service"
 import dynamic from "next/dynamic"
+import { IconPicker } from "../admin/layouts/IconPicker"
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false })
 
 export default function ServiceForm() {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
-    const [image, setImage] = useState("")
-    const [slug, setSlug] = useState("")
+    const [icon, setIcon] = useState<string>("Activity")
     const [isSaving, setIsSaving] = useState(false)
 
-    // Alert dialog state
     const [alertOpen, setAlertOpen] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
     const [alertTitle, setAlertTitle] = useState("")
@@ -41,7 +40,7 @@ export default function ServiceForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        if (!name.trim() || !description.trim() || !slug.trim()) {
+        if (!name.trim() || !description.trim() || !icon.trim()) {
             showAlert("Erro", "Preencha todos os campos obrigatórios.")
             return
         }
@@ -52,18 +51,14 @@ export default function ServiceForm() {
             const formData = new FormData()
             formData.append("name", name)
             formData.append("description", description)
-            formData.append("image", image)
-            formData.append("slug", slug)
+            formData.append("icon", icon)
 
-            const result = await service(formData)
+            const result = await createService(formData)
 
             showAlert("Sucesso", `Serviço "${result.name}" criado com sucesso!`)
 
-            // Resetar formulário
             setName("")
             setDescription("")
-            setImage("")
-            setSlug("")
         } catch (error) {
             console.error("Erro ao criar serviço:", error)
             showAlert("Erro", "Ocorreu um erro ao criar o serviço.")
@@ -73,17 +68,34 @@ export default function ServiceForm() {
     }
 
     return (
-        <>
-            <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-6 p-6 rounded-lg">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Nome do Serviço</Label>
-                    <Input
-                        id="name"
-                        placeholder="Digite o nome do serviço"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        disabled={isSaving}
-                    />
+        <div className="bg-sidebar min-h-[calc(100vh-70px)] h-auto">
+            <div className="border-b h-[90px]">
+                <div className="m-auto max-w-5xl py-4 flex justify-between items-center">
+                    <h1 className="text-5xl">Serviço</h1>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+            <form onSubmit={handleSubmit} className="max-w-5xl bg-sidebar mx-auto space-y-6 py-6 rounded-lg">
+                <div className="flex flex-col gap-3 sm:flex-row">
+                    <div className="space-y-2 flex-1">
+                        <Label htmlFor="name">Nome do Serviço</Label>
+                        <Input
+                            id="name"
+                            placeholder="Digite o nome do serviço"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            disabled={isSaving}
+                        />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="name">Icon</Label>
+                        <IconPicker
+                            value={icon as any}
+                            onChange={(value) => setIcon(value ?? "Activity")}
+                        />
+                    </div>
                 </div>
 
                 <div className="space-y-2">
@@ -94,32 +106,9 @@ export default function ServiceForm() {
                             onChange={(val) => setDescription(val || "")}
                             preview="edit"
                             height={400}
-                            disabled={isSaving}
                         />
                     </div>
                 </div>
-
-                    <div className="space-y-2">
-                        <Label htmlFor="image">Imagem (URL)</Label>
-                        <Input
-                            id="image"
-                            placeholder="https://exemplo.com/imagem.jpg"
-                            value={image}
-                            onChange={(e) => setImage(e.target.value)}
-                            disabled={isSaving}
-                        />
-                    </div>
-
-                    <div className="space-y-2">
-                        <Label htmlFor="slug">Slug (URL amigável)</Label>
-                        <Input
-                            id="slug"
-                            placeholder="nome-do-serviço"
-                            value={slug}
-                            onChange={(e) => setSlug(e.target.value)}
-                            disabled={isSaving}
-                        />
-                    </div>
 
                 <Button type="submit" disabled={isSaving}>
                     {isSaving ? (
@@ -132,7 +121,6 @@ export default function ServiceForm() {
                 </Button>
             </form>
 
-            {/* Alert Dialog */}
             <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
@@ -144,6 +132,6 @@ export default function ServiceForm() {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-        </>
+        </div>
     )
 }
