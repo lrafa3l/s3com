@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     siteName: "Sara3com",
     images: [
       {
-        url: "/cloud-company-logo.png", // (1200x630)
+        url: "https://sara3com.vercel.app/sara3comBanner.png", // (1200x630)
         width: 1200,
         height: 630,
         alt: "Sara3com — Tecnologia que Protege e Transforma o Futuro",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: "Sara3com — Tecnologia que Protege e Transforma o Futuro",
     description:
       "Sua Conexão, Nossa Inovação. Tecnologia que Protege e Transforma o Futuro.",
-    images: ["/og-image.jpg"],
+    images: ["https://sara3com.vercel.app/sara3comBanner.png"],
     creator: "@sara3com",
   },
 
