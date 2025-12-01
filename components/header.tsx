@@ -63,7 +63,7 @@ export function Header() {
     >
       <motion.nav
         className={`glass px-4 py-3 shadow-lg border border-brand/10 hover:border-brand/20 transition-colors ${
-          mobileMenuOpen ? "rounded-none" : "rounded-full"
+          mobileMenuOpen ? "rounded-lg" : "rounded-full"
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -73,13 +73,13 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2 group">
             <motion.div
               whileHover={{ scale: 1.1 }}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b group-hover:shadow-lg group-hover:shadow-brand/30 transition-shadow"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b group-hover:shadow-brand/30 transition-shadow"
             >
-              <span className="text-lg font-bold text-white">
+              <span className="text-lg font-bold">
                 <img src="/logo.png" alt="sara3com" className="w-10 h-10" />
               </span>
             </motion.div>
-            <span className="text-lg font-bold text-foreground hidden sm:block">SARA3COM</span>
+            <span className="text-lg font-bold text-foreground hidden sm:block">Sara3com</span>
           </Link>
 
           <ul className="hidden lg:flex items-center gap-8">
@@ -131,13 +131,13 @@ export function Header() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden mt-4 pt-4 border-2 border-brand/40 bg-gradient-to-br from-brand/5 to-brand-dark/5 overflow-hidden"
+              className="lg:hidden mt-4 pt-4 overflow-hidden"
             >
               <motion.nav
                 variants={menuVariants}
                 initial="hidden"
                 animate="visible"
-                className="flex flex-col gap-4 pb-4 px-4 sm:px-6"
+                className="flex flex-col gap-4 pt-4 pb-4 px-4 sm:px-6 rounded-lg border-2 border-brand/30"
               >
                 {navLinks.map((link) => (
                   <motion.div key={link.name} variants={itemVariants}>

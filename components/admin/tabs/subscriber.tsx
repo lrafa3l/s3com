@@ -81,7 +81,7 @@ export default function Subscriber({ className }: { className?: string }) {
             toast.error('Erro', {
                 description: "Erro ao deletar assinantes"
             })
-            console.error("[v0] Delete error:", error)
+            console.error("[SaraAI] Delete error:", error)
         } finally {
             setIsDeleting(false)
         }

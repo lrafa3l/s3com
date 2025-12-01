@@ -4,15 +4,32 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone, MapPin, MessageCircle, Clock, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+
+const navLinks = [
+  { name: "Planos", href: "#pricing" },
+]
 
 export function Hero() {
-  const router = useRouter()
   
+  const router = useRouter()
+  const [setMobileMenuOpen] = useState(false)
+  
+  const handleNavClick = (href: string) => {
+    const element = document.querySelector(href)
+    console.log("[Sara AI] Navigating to:", href, "Element found:", !!element)
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: "smooth", block: "start" })
+      }, 100)
+      setMobileMenuOpen(false)
+    }
+  }
+
   return (
     <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-24 pb-12">
       <div className="absolute inset-0 bg-gradient-to-br from-brand/10 via-background via-40% to-brand-dark/10" />
 
-      {/* AI-focused animated gradient orbs */}
       <motion.div
         animate={{
           scale: [1, 1.2, 1],
@@ -69,7 +86,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-6 text-lg leading-relaxed text-muted-foreground sm:text-xl text-pretty max-w-2xl mx-auto"
           >
-            SARA3COM oferece soluções de telecomunicações inovadoras{" "}
+            Sara3com oferece soluções de telecomunicações inovadoras{" "}
             <span className="font-semibold text-brand">integradas com IA</span>, fornecendo o melhor, mais rápido e mais
             inteligente suporte 24/7. Conectando Angola ao futuro.
           </motion.p>
@@ -84,6 +101,7 @@ export function Hero() {
               <Button
                 size="lg"
                 className="gap-2 bg-gradient-to-r from-brand to-brand-light text-white border-0 shadow-lg shadow-brand/25 hover:shadow-brand/50 hover:opacity-90 transition-shadow"
+                onClick={() => handleNavClick("#pricing")}
               >
                 Ver Nossos Planos
                 <ArrowRight className="h-4 w-4" />
