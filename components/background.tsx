@@ -1,10 +1,7 @@
 // components/Background.tsx
 "use client"
 
-import type React from "react"
-
 import { cn } from "@/lib/utils"
-// import "../styles/background.css"
 
 export function Background({
   children,
@@ -13,27 +10,35 @@ export function Background({
   children?: React.ReactNode
   className?: string
 }) {
-  const spans = Array.from({ length: 300 })
+  const particles = Array.from({ length: 80 })
 
   return (
     <>
-      {/* Fixed full-screen animated particle background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <section className="section bg-fixed">
-          {spans.map((_, i) => (
-            <span
-              key={i}
-              className="span"
-              style={{
-                // Randomize animation delay for natural effect
-                animationDelay: `${Math.random() * 5}s`,
-              }}
-            />
-          ))}
-        </section>
+      {/* Background animado full-screen */}
+      <div className="animated-bg">
+        {/* Faixa de luz roxa que sobe e desce suavemente */}
+        <div className="absolute inset-0" />
+
+        {/* Partículas flutuando */}
+        {particles.map((_, i) => (
+          <div
+            key={i}
+            className="particle absolute"
+            style={{
+              left: `${Math.random() * 100}%`,
+              width: `${Math.random() * 4 + 1}px`,
+              height: `${Math.random() * 4 + 1}px`,
+              animationDelay: `${Math.random() * 20}s`,
+              animationDuration: `${Math.random() * 20 + 15}s`,
+            }}
+          />
+        ))}
       </div>
-      {/* Actual page content - now free to be on top */}
-      <main className={cn("relative min-h-screen", className)}>{children}</main>
+
+      {/* Conteúdo da página por cima */}
+      <main className={cn("relative min-h-screen", className)}>
+        {children}
+      </main>
     </>
   )
 }

@@ -5,16 +5,17 @@ import { ArrowRight, Phone, MapPin, MessageCircle, Clock, Sparkles } from "lucid
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import TypeIt from "typeit-react"
 
 const navLinks = [
   { name: "Planos", href: "#pricing" },
 ]
 
 export function Hero() {
-  
+
   const router = useRouter()
   const [setMobileMenuOpen] = useState(false)
-  
+
   const handleNavClick = (href: string) => {
     const element = document.querySelector(href)
     console.log("[Sara AI] Navigating to:", href, "Element found:", !!element)
@@ -75,8 +76,24 @@ export function Hero() {
             className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl text-balance"
           >
             Acreditamos no{" "}
+            <br></br>
             <span className="bg-gradient-to-r from-brand via-brand-light to-brand bg-clip-text text-transparent animate-pulse">
-              Futuro Inteligente
+              <TypeIt
+                options={{
+                  speed: 100,
+                  waitUntilVisible: true,
+                }}
+                getBeforeInit={(instance) => {
+                  instance
+                    .type("Futuro Inteligenbrt")
+                    .pause(800)
+                    .delete(2)
+                    .pause(400)
+                    .type("nte")
+                    .go();
+                  return instance;
+                }}
+              />
             </span>
           </motion.h1>
 

@@ -117,7 +117,10 @@ export function Footer() {
         {/* Social Links & Copyright */}
         <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-border pt-8 md:flex-row">
           <p className="text-sm text-muted-foreground text-center md:text-left">
-            © 2025 SARA3COM-LDA — Todos os direitos reservados.
+            © 2025 Sara3com — Todos os direitos reservados.
+          </p>
+          <p className="text-sm text-muted-foreground text-center md:text-center">
+            Made by Suimagem
           </p>
 
           <div className="flex items-center gap-4">

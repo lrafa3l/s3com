@@ -182,8 +182,8 @@ const ChatBotDemo: React.FC = () => {
   return (
     <div className="w-full h-screen bg-sidebar mx-auto relative overflow-hidden">
       <Link href="/" className="absolute flex gap-2 items-center top-3 left-3 cursor-pointer z-50">
-        <img src="/logo.png" alt="sara3com" className="w-8 h-8" />
-        <h1>Sara3com</h1>
+        <img src="/logo.png" alt="sara3com" className="w-10 h-10" />
+        <span className="text-lg font-bold text-foreground hidden sm:block">Sara3com</span>
       </Link>
       <ResizablePanelGroup direction="horizontal" className={isMobile ? "pt-10" : ""}>
         <ResizablePanel defaultSize={toolExecutions.length > 0 ? 65 : 100}>
@@ -367,12 +367,13 @@ const ChatBotDemo: React.FC = () => {
                       <img
                         src="/logo.png"
                         alt="Sara3com"
-                        className="w-9 h-9 rounded-full shadow-sm"
+                        className="w-10 h-10"
                       />
-                      <h1 className="text-3xl tracking-tight">Sara3com</h1>
+                      <br/>
+                      <span className="text-3xl font-semibold tracking-tight text-foreground hidden sm:block">Sara AI</span>
                     </motion.div>
                     <h2 className="text-  xl text-center">
-                      Suporte rápido, eficiente e disponível 24h com a nossa assistente virtual
+                      Suporte rápido, eficiente e disponível 24/7 com a nossa assistente virtual
                     </h2>
                   </div>
                 )}

@@ -55,32 +55,38 @@ export default function LoginPageForm() {  // <-- Removido async
               href="/"
               className="flex flex-col items-center gap-2 font-medium"
             >
-              <div className="flex size-8 items-center justify-center rounded-md">
-                <img src="/logo.png" alt="sara3com" />
+              <div className="flex items-center justify-center rounded-md">
+                <img src="/logo.png" alt="sara3com" className="w-10 h-10" />
               </div>
               <span className="sr-only">Sara3com</span>
             </a>
-            <h1 className="text-xl font-bold">Welcome to Sara3com</h1>
+            <h1 className="text-xl font-bold">Benvindo(a) à Sara3com</h1>
           </div>
 
           <Field>
-            <FieldLabel htmlFor="identifier">Email ou Username</FieldLabel>
+            <FieldLabel htmlFor="identifier" className="items-center text-center" >Email ou Username</FieldLabel>
             <Input
               id="identifier"
               name="identifier"
               placeholder="email@exemplo.com ou username"
+              className="hidden md:flex px-6 py-2 rounded-full border-0 hover:opacity-90 shadow-[0_0_12px_var(--tw-shadow-color)] shadow-brand/20 hover:shadow-[0_0_18px_var(--tw-shadow-color)] hover:shadow-brand/40 transition-shadow"
               required
             />
           </Field>
 
           <Field>
             <FieldLabel htmlFor="password">Senha</FieldLabel>
-            <Input id="password" name="password" type="password" required />
+            <Input id="password" 
+                  name="password"
+                  type="password"
+                  placeholder="Senha"
+                  className="hidden md:flex px-6 py-2 rounded-full border-0 hover:opacity-90 shadow-[0_0_12px_var(--tw-shadow-color)] shadow-brand/20 hover:shadow-[0_0_18px_var(--tw-shadow-color)] hover:shadow-brand/40 transition-shadow"
+              required />
           </Field>
 
           <Field>
             {error && <span style={{ color: "red" }}>{error}</span>}
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="hidden md:flex px-6 py-2 rounded-full bg-gradient-to-r from-brand to-brand-light text-white border-0 hover:opacity-90 shadow-lg shadow-brand/20 hover:shadow-brand/40 transition-shadow cursor-pointer" disabled={loading}>
               {loading ? "Loading..." : "Login"}
             </Button>
           </Field>
@@ -88,8 +94,8 @@ export default function LoginPageForm() {  // <-- Removido async
       </form>
 
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        Ao clicar em continuar, concorda com os nossos <a href="#">Termos de Serviço</a>{" "}
+        e <a href="#">Política de Privacidade</a>.
       </FieldDescription>
     </div>
   )
