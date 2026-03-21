@@ -148,11 +148,11 @@ export function Hero() {
         <div className="flex flex-wrap justify-center gap-6 md:gap-12 text-muted-foreground text-sm">
           <motion.div className="flex items-center gap-2 hover:text-foreground transition-colors" whileHover={{ x: 5 }}>
             <MapPin className="h-4 w-4 text-brand" />
-            <span>Rua 28 Bairro Benfica, Luanda</span>
+            <span>Rua 28, Benfica, Luanda</span>
           </motion.div>
           <motion.div className="flex items-center gap-2 hover:text-foreground transition-colors" whileHover={{ x: 5 }}>
             <Phone className="h-4 w-4 text-brand" />
-            <span>+244 924 456 001</span>
+            <span>+244 932 230 002</span>
           </motion.div>
           <motion.div className="flex items-center gap-2 hover:text-foreground transition-colors" whileHover={{ x: 5 }}>
             <Clock className="h-4 w-4 text-brand" />

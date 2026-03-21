@@ -82,11 +82,11 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 text-brand" />
-                <span>+244 924 456 001 / +244 924 456 002</span>
+                <span>+244 932 230 002 / +244 223 510 002</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 text-brand" />
-                <span>info@sara3com.co.ao</span>
+                <span>neide.costa@sara3com.co.ao</span>
               </div>
             </div>
           </motion.div>
@@ -116,9 +116,9 @@ export function Footer() {
 
         {/* Social Links & Copyright */}
         <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-border pt-8 md:flex-row">
-          <p className="text-sm text-muted-foreground text-center md:text-left">
-            © 2025 Sara3com — Todos os direitos reservados.
-          </p>
+            <p className="text-sm text-muted-foreground text-center md:text-left">
+            © {new Date().getFullYear()} Sara3com — Todos os direitos reservados.
+            </p>
           <p className="text-sm text-muted-foreground text-center md:text-center">
             Made by Suimagem
           </p>

@@ -4,7 +4,7 @@ import type React from "react"
 
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { MapPin, Phone, Clock, Send, CheckCircle } from "lucide-react"
+import { MapPin, Mailbox, Phone, Clock, Send, CheckCircle } from "lucide-react"
 import { useState } from "react"
 import { sendMail } from "@/util/sendMail"
 import { subscriber } from "@/services/mutation/subscriber"
@@ -227,7 +227,7 @@ export function ContactSection() {
               whileHover={{ y: -5 }}
               className="group rounded-2xl border border-border bg-card p-6 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/10 transition-all duration-300"
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-4 items-center">
                 <div className="flex-shrink-0">
                   <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-brand to-brand-light shadow-lg shadow-brand/25">
                     <MapPin className="h-6 w-6 text-white" />
@@ -244,12 +244,32 @@ export function ContactSection() {
               </div>
             </motion.div>
 
+            {/* Address */}
+            <motion.div
+              whileHover={{ y: -5 }}
+              className="group rounded-2xl border border-border bg-card p-6 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/10 transition-all duration-300"
+            >
+              <div className="flex items-start gap-4 items-center">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-brand to-brand-light shadow-lg shadow-brand/25">
+                    <Mailbox className="h-6 w-6 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-foreground">Caixa Postal</h4>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    7140
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Phone */}
             <motion.div
               whileHover={{ y: -5 }}
               className="group rounded-2xl border border-border bg-card p-6 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/10 transition-all duration-300"
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-4 items-center">
                 <div className="flex-shrink-0">
                   <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-brand to-brand-light shadow-lg shadow-brand/25">
                     <Phone className="h-6 w-6 text-white" />
@@ -258,9 +278,9 @@ export function ContactSection() {
                 <div>
                   <h4 className="text-lg font-semibold text-foreground">Contacte-nos</h4>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    +244 924 456 001
+                    +244 932 230 002
                     <br />
-                    +244 922 000 123
+                    +244 223 510 002
                   </p>
                 </div>
               </div>
@@ -271,7 +291,7 @@ export function ContactSection() {
               whileHover={{ y: -5 }}
               className="group rounded-2xl border border-border bg-card p-6 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/10 transition-all duration-300"
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-4 items-center">
                 <div className="flex-shrink-0">
                   <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-brand to-brand-light shadow-lg shadow-brand/25">
                     <Clock className="h-6 w-6 text-white" />
