@@ -7,8 +7,11 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
 
-export const authOptions: AuthOptions = {
-  adapter: PrismaAdapter(prisma),
+/**
+ * Shared auth configuration — providers, session strategy, callbacks.
+ * Used as the base for both read-only and adapter-equipped variants.
+ */
+const sharedAuthConfig: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -95,5 +98,25 @@ export const authOptions: AuthOptions = {
       return session
     },
   }
+};
 
+/**
+ * BUG 1 FIX: Read-only auth options — NO PrismaAdapter.
+ * Used in getServerSession() calls across the app (e.g. AuthGate, admin page).
+ * Since session.strategy is "jwt", the adapter is NOT needed for session reads,
+ * and including it causes a DB connection on every check — which can hang on
+ * cold starts / Neon serverless latency, leaving Suspense stuck forever (blank page).
+ */
+export const authOptions: AuthOptions = {
+  ...sharedAuthConfig,
+};
+
+/**
+ * Auth options WITH PrismaAdapter — used ONLY in the NextAuth API route handler.
+ * The adapter is required for OAuth account persistence (linking provider accounts
+ * to users in the database on sign-in/sign-up).
+ */
+export const authOptionsWithAdapter: AuthOptions = {
+  ...sharedAuthConfig,
+  adapter: PrismaAdapter(prisma),
 };

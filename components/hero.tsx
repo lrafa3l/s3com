@@ -6,23 +6,21 @@ import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import TypeIt from "typeit-react"
+import { scrollToSection } from "@/config/nav"
 
-const navLinks = [
+// Hero-specific links (subset of full nav). Full navLinks are in @/config/nav.
+const heroLinks = [
   { name: "Planos", href: "#pricing" },
 ]
 
 export function Hero() {
 
   const router = useRouter()
-  const [setMobileMenuOpen] = useState(false)
+  // BUG 7 FIX: Destructure correctly — skip the state value, keep the setter
+  const [, setMobileMenuOpen] = useState(false)
 
   const handleNavClick = (href: string) => {
-    const element = document.querySelector(href)
-    console.log("[Sara AI] Navigating to:", href, "Element found:", !!element)
-    if (element) {
-      setTimeout(() => {
-        element.scrollIntoView({ behavior: "smooth", block: "start" })
-      }, 100)
+    if (scrollToSection(href)) {
       setMobileMenuOpen(false)
     }
   }

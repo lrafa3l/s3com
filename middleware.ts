@@ -20,7 +20,7 @@ export async function middleware(req: NextRequest) {
   return NextResponse.next()
 }
 
-// Define quais rotas o middleware deve observar
+// BUG 8 FIX: Include /signin so authenticated users get redirected to /admin
 export const config = {
-  matcher: ["/admin/:path*"], // aplica apenas em /admin e subrotas
+  matcher: ["/admin/:path*", "/signin"],
 }

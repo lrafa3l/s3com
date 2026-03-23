@@ -5,15 +5,17 @@ import HeaderPage from "@/components/admin/layouts/header-page"
 import { Suspense } from "react"
 import { redirect } from "next/navigation"
 
+// BUG 10 FIX: In Next.js 15+, searchParams is a Promise and must be awaited.
 export default async function AdminPage({
   searchParams,
 }: {
-  searchParams?: Record<string, string | undefined>
+  searchParams?: Promise<Record<string, string | undefined>>
 }) {
   const session = await getServerSession(authOptions)
-  const tab = searchParams?.tab ?? "subscriber"
+  const params = await searchParams
+  const tab = params?.tab ?? "subscriber"
 
-  if(!session)
+  if (!session)
     redirect("/signin")
 
   return (

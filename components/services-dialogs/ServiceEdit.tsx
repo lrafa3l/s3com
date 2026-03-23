@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useQueryClient } from "@tanstack/react-query"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
@@ -12,7 +13,7 @@ import dynamic from "next/dynamic"
 import { IconPicker } from "../admin/layouts/IconPicker"
 import { toast } from "sonner"
 import { Service } from "@prisma/client"
-import { queryClient } from "@/providers/QueryClientProvider"
+
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false })
 
@@ -21,6 +22,7 @@ export default function ServiceEdit({ service }: { service: Service }) {
     const [description, setDescription] = useState(service.description || "")
     const [icon, setIcon] = useState<string>(service.icon || "Activity")
     const [isSaving, setIsSaving] = useState(false)
+    const queryClient = useQueryClient()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -41,7 +43,7 @@ export default function ServiceEdit({ service }: { service: Service }) {
             toast.success("Sucesso", {
                 description: `Serviço "${result.name}" Atualizado com sucesso!`
             })
-            queryClient.invalidateQueries({queryKey: ["services"]})
+            queryClient.invalidateQueries({ queryKey: ["services"] })
         } catch (error) {
             console.error("Erro", { description: "Erro ao Atualizar serviço:", error })
             toast.error("Erro", { description: "Ocorreu um erro ao Atualizar o serviço." })

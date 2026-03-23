@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Ubuntu } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
@@ -79,8 +79,13 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
 
-  themeColor: "#6252f9",
+  // BUG 4 FIX: themeColor moved to separate viewport export (Next.js 15+ requirement)
   manifest: "/site.webmanifest",
+};
+
+// BUG 4 FIX: themeColor must be in a viewport export since Next.js 15+
+export const viewport: Viewport = {
+  themeColor: "#6252f9",
 };
 
 

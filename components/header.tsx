@@ -6,14 +6,9 @@ import { Menu, X } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
+import { navLinks, scrollToSection } from "@/config/nav"
 
-const navLinks = [
-  { name: "Página Inicial", href: "#home" },
-  { name: "Sobre Nós", href: "#about" },
-  { name: "Serviços", href: "#services" },
-  { name: "Planos", href: "#pricing" },
-  { name: "Suporte", href: "#contact" },
-]
+// navLinks imported from @/config/nav
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -29,12 +24,7 @@ export function Header() {
   }, [])
 
   const handleNavClick = (href: string) => {
-    const element = document.querySelector(href)
-    console.log("[Sara AI] Navigating to:", href, "Element found:", !!element)
-    if (element) {
-      setTimeout(() => {
-        element.scrollIntoView({ behavior: "smooth", block: "start" })
-      }, 100)
+    if (scrollToSection(href)) {
       setMobileMenuOpen(false)
     }
   }
@@ -62,9 +52,8 @@ export function Header() {
       className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl transition-all duration-300 ${scrolled ? "top-2" : "top-4"}`}
     >
       <motion.nav
-        className={`glass px-4 py-3 shadow-lg border border-brand/10 hover:border-brand/20 transition-colors ${
-          mobileMenuOpen ? "rounded-lg" : "rounded-full"
-        }`}
+        className={`glass px-4 py-3 shadow-lg border border-brand/10 hover:border-brand/20 transition-colors ${mobileMenuOpen ? "rounded-lg" : "rounded-full"
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}

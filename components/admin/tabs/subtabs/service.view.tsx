@@ -1,6 +1,6 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getService } from "@/services/get/getService"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -21,7 +21,7 @@ import ReactMarkdown from "react-markdown"
 import Loading from "../../layouts/loading"
 import * as Icons from "lucide-react";
 import { deleteService } from "@/services/mutation/service"
-import { queryClient } from "@/providers/QueryClientProvider"
+
 import { toast } from "sonner"
 import ServiceEdit from "@/components/services-dialogs/ServiceEdit"
 
@@ -30,6 +30,7 @@ interface ServiceViewProps {
 }
 
 export default function ServiceView({ className }: ServiceViewProps) {
+  const queryClient = useQueryClient()
   const { data: services, isLoading, error } = useQuery({
     queryKey: ["services"],
     queryFn: getService,
@@ -108,7 +109,7 @@ export default function ServiceView({ className }: ServiceViewProps) {
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
-                  <div className="bg-primary p-1 rounded-sm">
+                  <div className="bg-primary p-1 rounded-sm text-white">
                     <IconComponent size={23} />
                   </div>
                 </div>
@@ -122,7 +123,7 @@ export default function ServiceView({ className }: ServiceViewProps) {
 
               <AlertDialog>
                 <AlertDialogTrigger asChild className="absolute border-border bottom-1 right-1">
-                  <Button variant="outline">
+                  <Button variant="outline" >
                     <Icons.Trash2 />
                   </Button>
                 </AlertDialogTrigger>

@@ -95,12 +95,14 @@ export async function POST(req: NextRequest) {
       sendSources: true,
       sendReasoning: true,
     })
-  } catch (error: any) {
-    console.error("Erro no endpoint de chat:", error)
+  } catch (error: unknown) {
+    // Improved: typed error handling instead of `any`
+    const message = error instanceof Error ? error.message : String(error)
+    console.error("Erro no endpoint de chat:", message)
     return new Response(
       JSON.stringify({
         error: "Erro interno do servidor",
-        ...(process.env.NODE_ENV === "development" && { details: error.message }),
+        ...(process.env.NODE_ENV === "development" && { details: message }),
       }),
       {
         status: 500,

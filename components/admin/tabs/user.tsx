@@ -11,11 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { FormEvent } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserByID } from "@/services/auth/getUsers";
 import { useAuth } from "@/hooks/useAuth";
 import Loading from "../layouts/loading";
-import { queryClient } from "@/providers/QueryClientProvider";
+
 import { UpdateUser } from "@/services/auth/registerUser";
 import {
   Accordion,
@@ -27,6 +27,7 @@ import {
 
 export default function User({ className }: { className?: string }) {
   const { user } = useAuth();
+  const queryClient = useQueryClient();
 
   const { data, isPending, error } = useQuery({
     queryKey: ['userinfo'],
