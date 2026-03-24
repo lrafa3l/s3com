@@ -3,6 +3,7 @@ import { Suspense } from "react"
 import type { Metadata, Viewport } from "next"
 import { Ubuntu } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css"
 import QueryClientProviderMain from "@/providers/QueryClientProvider"
 import AuthProviderMain from "@/providers/AuthProvider"
@@ -119,6 +120,7 @@ export default function RootLayout({
           </AuthProviderMain>
         </QueryClientProviderMain>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
