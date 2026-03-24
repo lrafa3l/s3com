@@ -264,3 +264,155 @@
     100% { transform: translateY(-100vh) translateX(150vw) rotate(360deg); opacity: 0; }
   }
 }
+
+/* ============================================
+   UX IMPROVEMENTS - Scroll Animations & Interactions
+   ============================================ */
+
+/* Scroll-triggered fade-up animation */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger children with CSS variable */
+.stagger-child {
+  transition-delay: calc(var(--i, 0) * 0.1s);
+}
+
+/* Hero entrance animation */
+.hero-animate {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-animate.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Button ripple effect */
+@keyframes ripple {
+  to {
+    transform: scale(80);
+    opacity: 0;
+  }
+}
+
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card tilt enhancement */
+.card-tilt {
+  will-change: transform;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+}
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  bottom: 96px;
+  left: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(var(--color-primary), 0.12);
+  border: 1px solid rgba(var(--color-primary), 0.3);
+  color: hsl(var(--primary));
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: rgba(var(--color-primary), 0.2);
+  transform: translateY(-2px);
+}
+
+/* Navbar scroll state */
+.navbar-scrolled {
+  @apply backdrop-blur-lg shadow-lg;
+  background: rgba(var(--background), 0.85) !important;
+  border-bottom: 1px solid rgba(var(--color-border), 0.5);
+}
+
+/* Active nav link */
+.nav-link-active {
+  @apply text-primary;
+}
+
+/* Testimonial smooth transition */
+.testimonial-content {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.testimonial-content.transitioning {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* ============================================
+   MOBILE RESPONSIVE IMPROVEMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Bigger tap targets */
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+  }
+
+  /* Disable tilt on touch */
+  .card-tilt {
+    transform: none !important;
+  }
+
+  .card-tilt:active {
+    transform: scale(0.98) !important;
+  }
+
+  /* Prevent text selection on interactive elements */
+  button {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Section padding reduction */
+  section {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
+
+  /* Back to top button mobile position */
+  .back-to-top {
+    bottom: 100px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+  }
+}
