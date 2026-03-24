@@ -56,15 +56,36 @@ export default function HeaderPage({
             className="flex items-center gap-3 pr-5 cursor-pointer"
             onClick={() => router.push("/")}
           >
-            <Image
-              src={"/logo.png"}
-              id="bigLogo"
-              width={40}
-              height={40}
-              alt="logo"
-              onLoadingComplete={() => setLoaded(true)}
-              className={`object-contain  transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0 animate-pulse"}`}
-            />
+            <div className="relative" style={{ width: 40, height: 40 }}>
+              {/* Outer spinning ring */}
+              {!loaded && (
+                <div
+                  className="loader-ring-outer absolute rounded-full"
+                  style={{ inset: -4 }}
+                />
+              )}
+              {/* Inner counter-spinning ring */}
+              {!loaded && (
+                <div
+                  className="loader-ring-inner absolute rounded-full"
+                  style={{ inset: -8 }}
+                />
+              )}
+              <Image
+                src={"/logo.png"}
+                id="bigLogo"
+                width={40}
+                height={40}
+                alt="logo"
+                onLoad={() => setLoaded(true)}
+                className="object-contain relative z-10"
+                style={{
+                  animation: loaded ? "none" : "logo-spin 1.8s linear infinite",
+                  opacity: loaded ? 1 : 0.9,
+                  transition: "opacity 0.3s ease",
+                }}
+              />
+            </div>
             {!isMobile && <h1 className="font-semibold">Sara3com</h1>}
           </div>
           {menuNav && menuNav.length > 0 && (

@@ -19,7 +19,6 @@ import { cn } from "@/lib/utils";
 import type { ChatStatus, FileUIPart } from "ai";
 import {
   ImageIcon,
-  Loader2Icon,
   PaperclipIcon,
   PlusIcon,
   SendHorizonalIcon,
@@ -28,6 +27,7 @@ import {
   SquareIcon,
   XIcon,
 } from "lucide-react";
+import Image from "next/image";
 import { nanoid } from "nanoid";
 import {
   type ChangeEventHandler,
@@ -617,7 +617,22 @@ export const PromptInputSubmit = ({
   let Icon = <SendHorizontalIcon className="size-4" />;
 
   if (status === "submitted") {
-    Icon = <Loader2Icon className="size-4 animate-spin" />;
+    Icon = (
+      <div className="relative" style={{ width: 16, height: 16 }}>
+        <div
+          className="loader-ring-outer absolute rounded-full"
+          style={{ inset: -2, animationDuration: "0.8s" }}
+        />
+        <Image
+          src="/logo.png"
+          width={16}
+          height={16}
+          alt=""
+          className="object-contain"
+          style={{ animation: "logo-spin 1.2s linear infinite" }}
+        />
+      </div>
+    );
   } else if (status === "streaming") {
     Icon = <SquareIcon className="size-4" />;
   } else if (status === "error") {

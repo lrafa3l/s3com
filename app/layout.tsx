@@ -1,4 +1,5 @@
 import type React from "react"
+import { Suspense } from "react"
 import type { Metadata, Viewport } from "next"
 import { Ubuntu } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
@@ -8,6 +9,7 @@ import AuthProviderMain from "@/providers/AuthProvider"
 import { ProgressProvider } from "@/providers/ProgressProvider"
 import { Toaster } from "sonner"
 import { ThemeProvider } from "@/providers/theme-provider"
+import { PageLoader, RouteLoader } from "@/components/loading"
 
 const ubuntu = Ubuntu({
   weight: ["300", "400", "500", "700"],
@@ -106,6 +108,10 @@ export default function RootLayout({
               disableTransitionOnChange
             >
               <ProgressProvider>
+                <PageLoader />
+                <Suspense fallback={null}>
+                  <RouteLoader />
+                </Suspense>
                 {children}
                 <Toaster />
               </ProgressProvider>

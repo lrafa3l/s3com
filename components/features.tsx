@@ -4,6 +4,7 @@ import * as Icons from "lucide-react";
 import { motion } from "framer-motion"
 import { useQuery } from "@tanstack/react-query"
 import { getServiceLeading } from "@/services/get/getService"
+import { LogoLoader } from "@/components/loading"
 
 
 export function Features() {
@@ -53,6 +54,11 @@ export function Features() {
         </div>
 
         <div className="mt-16 grid gap-8 sm:grid-cols-2  lg:grid-cols-3">
+          {isLoading && (
+            <div className="col-span-full flex justify-center py-12">
+              <LogoLoader size={48} showRing showText label="A carregar serviços..." />
+            </div>
+          )}
           {features && features.map((feature, index) => {
             const IconComponent = (Icons[feature.icon as keyof typeof Icons] as React.ComponentType<Icons.LucideProps>) || Icons.ImageIcon;
             return (

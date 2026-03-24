@@ -1,15 +1,35 @@
-import { Loader2Icon } from 'lucide-react'
+"use client"
 
-import { cn } from '@/lib/utils'
+import Image from "next/image"
+import { cn } from "@/lib/utils"
 
-function Spinner({ className, ...props }: React.ComponentProps<'svg'>) {
+interface SpinnerProps {
+  className?: string
+  size?: number
+}
+
+function Spinner({ className, size = 16 }: SpinnerProps) {
   return (
-    <Loader2Icon
+    <div
       role="status"
       aria-label="Loading"
-      className={cn('size-4 animate-spin', className)}
-      {...props}
-    />
+      className={cn("relative inline-flex items-center justify-center", className)}
+      style={{ width: size, height: size }}
+    >
+      {/* Spinning ring */}
+      <div
+        className="loader-ring-outer absolute rounded-full"
+        style={{ inset: -2, animationDuration: "0.8s" }}
+      />
+      <Image
+        src="/logo.png"
+        width={size}
+        height={size}
+        alt=""
+        className="object-contain"
+        style={{ animation: "logo-spin 1.2s linear infinite" }}
+      />
+    </div>
   )
 }
 

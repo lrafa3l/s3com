@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (.dark &);
 
 :root {
   --background: oklch(0.98 0.005 300);
@@ -415,4 +415,163 @@
     width: 40px;
     height: 40px;
   }
+}
+
+/* ============================================
+   LOADING ANIMATION SYSTEM
+   ============================================ */
+   
+/* Theme-aware loading colors */
+:root {
+  --loader-ring-primary: oklch(0.45 0.18 300);
+  --loader-ring-secondary: oklch(0.55 0.2 300 / 0.3);
+  --loader-ring-accent: oklch(0.6 0.15 30 / 0.3);
+  --loader-bg: oklch(0.98 0.005 300);
+  --loader-bg-overlay: oklch(0.98 0.005 300 / 0.92);
+  --loader-text: oklch(0.45 0.18 300);
+  --loader-dot: oklch(0.45 0.18 300);
+}
+
+.dark {
+  --loader-ring-primary: oklch(0.65 0.22 300);
+  --loader-ring-secondary: oklch(0.55 0.2 300 / 0.4);
+  --loader-ring-accent: oklch(0.65 0.2 30 / 0.4);
+  --loader-bg: oklch(0.12 0.02 250);
+  --loader-bg-overlay: oklch(0.12 0.02 250 / 0.92);
+  --loader-text: oklch(0.65 0.22 300);
+  --loader-dot: oklch(0.65 0.22 300);
+}
+
+/* Progress bar fill animation */
+@keyframes progress-fill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* Logo spinning animations */
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logo-spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes logo-pulse-scale {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(180deg); }
+}
+
+/* Route transition bar animations */
+@keyframes route-bar {
+  from { width: 0%; opacity: 1; }
+  to { width: 100%; opacity: 1; }
+}
+
+@keyframes bar-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Typing dots animation */
+@keyframes typing {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* Glow pulse animation */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 4px oklch(0.45 0.18 300 / 0);
+  }
+  50% {
+    box-shadow: 0 0 16px 4px oklch(0.45 0.18 300 / 0.4);
+  }
+}
+
+@keyframes glow-pulse-dark {
+  0%, 100% {
+    box-shadow: 0 0 0 4px oklch(0.55 0.2 300 / 0);
+  }
+  50% {
+    box-shadow: 0 0 16px 4px oklch(0.55 0.2 300 / 0.4);
+  }
+}
+
+/* Skeleton shimmer animation - theme aware */
+.skeleton-shimmer {
+  @apply bg-muted;
+  background-image: linear-gradient(
+    90deg,
+    transparent 25%,
+    oklch(0.45 0.18 300 / 0.08) 50%,
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  @apply border border-border/50;
+}
+
+.dark .skeleton-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent 25%,
+    oklch(0.55 0.2 300 / 0.15) 50%,
+    transparent 75%
+  );
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Loader ring styles - theme aware */
+.loader-ring-outer {
+  border: 1.5px solid transparent;
+  border-top-color: var(--loader-ring-primary);
+  border-right-color: var(--loader-ring-secondary);
+  animation: logo-spin 1s linear infinite;
+}
+
+.loader-ring-inner {
+  border: 1px solid transparent;
+  border-bottom-color: var(--loader-ring-secondary);
+  border-left-color: var(--loader-ring-accent);
+  animation: logo-spin-reverse 1.6s linear infinite;
+}
+
+.loader-ring-fast {
+  border: 1px solid transparent;
+  border-top-color: var(--loader-ring-accent);
+  animation: logo-spin 0.7s linear infinite;
+}
+
+/* ============================================
+   OVERSIZED WORDMARK FOOTER
+   ============================================ */
+
+.wordmark-footer {
+  display: block;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(80px, 18vw, 260px);
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+  background: linear-gradient(135deg, rgba(var(--color-primary), 0.18), rgba(var(--color-primary), 0.08));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: translateY(18%);
+  user-select: none;
+  pointer-events: none;
 }

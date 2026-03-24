@@ -21,7 +21,7 @@ import { Actions, Action } from "@/components/ai-elements/actions"
 import { Response } from "@/components/ai-elements/response"
 import { Source, Sources, SourcesContent, SourcesTrigger } from "@/components/ai-elements/sources"
 import { Reasoning, ReasoningContent, ReasoningTrigger } from "@/components/ai-elements/reasoning"
-import { CopyIcon, Mic, RefreshCcwIcon, Loader2, AlertCircle, Volume2, User } from "lucide-react"
+import { CopyIcon, Mic, RefreshCcwIcon, AlertCircle, Volume2, User } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-mobile"
 import SpeechToTextButton from "@/components/setting/SpeechToText"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -30,6 +30,7 @@ import { ToolDetailView, ToolListItem } from "@/components/tools/config"
 import { cn } from "@/lib/utils"
 import TTSDialog from "@/components/setting/tts-dialog"
 import Link from "next/link"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { useAuth } from "@/hooks/useAuth"
 import { getInitials } from "@/config/uitl1"
@@ -310,7 +311,20 @@ const ChatBotDemo: React.FC = () => {
                 {/* Loading status */}
                 {status === "submitted" && (
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <Loader2 className="size-4 animate-spin" />
+                    <div className="relative" style={{ width: 16, height: 16 }}>
+                      <div
+                        className="loader-ring-outer absolute rounded-full"
+                        style={{ inset: -2, animationDuration: "0.8s" }}
+                      />
+                      <Image
+                        src="/logo.png"
+                        width={16}
+                        height={16}
+                        alt=""
+                        className="object-contain"
+                        style={{ animation: "logo-spin 1.2s linear infinite" }}
+                      />
+                    </div>
                     <span>Processando...</span>
                   </div>
                 )}

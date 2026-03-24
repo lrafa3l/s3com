@@ -148,6 +148,15 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Oversized Wordmark */}
+      <div
+        className="w-full overflow-hidden mt-0"
+        style={{ lineHeight: 0.85 }}
+        aria-hidden="true"
+      >
+        <span className="wordmark-footer">Sara3com</span>
+      </div>
     </footer>
   )
 }

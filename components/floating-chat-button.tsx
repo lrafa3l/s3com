@@ -4,7 +4,8 @@ import { Fragment, useState } from "react"
 import { useChat } from "@ai-sdk/react"
 import { DefaultChatTransport } from "ai"
 import { motion } from "framer-motion"
-import { MessageCircle, Send, X, Loader2 } from "lucide-react"
+import { MessageCircle, Send, X } from "lucide-react"
+import Image from "next/image"
 
 import { cn } from "@/lib/utils"
 
@@ -86,7 +87,20 @@ export function FloatingChatButton() {
             {/* Loading status */}
             {status === "submitted" && (
               <div className="flex items-center gap-2 text-muted-foreground">
-                <Loader2 className="size-4 animate-spin" />
+                <div className="relative" style={{ width: 16, height: 16 }}>
+                  <div
+                    className="loader-ring-outer absolute rounded-full"
+                    style={{ inset: -2, animationDuration: "0.8s" }}
+                  />
+                  <Image
+                    src="/logo.png"
+                    width={16}
+                    height={16}
+                    alt=""
+                    className="object-contain"
+                    style={{ animation: "logo-spin 1.2s linear infinite" }}
+                  />
+                </div>
               </div>
             )}
 
