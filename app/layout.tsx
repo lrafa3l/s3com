@@ -98,6 +98,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt" suppressHydrationWarning>
+      <head>
+        {/* Blocking script to prevent theme flash and fix double-press toggle bug */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            const stored = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (stored === 'dark' || (!stored && prefersDark)) {
+              document.documentElement.classList.add('dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+            }
+          })();
+        ` }} />
+      </head>
       <body className={`${ubuntu.variable} font-ubuntu antialiased`}>
         <QueryClientProviderMain>
           <AuthProviderMain>

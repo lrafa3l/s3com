@@ -18,6 +18,10 @@ export default async function AdminPage({
   if (!session)
     redirect("/signin")
 
+  // Require admin role
+  if (session.user?.level !== "admin")
+    redirect("/")
+
   return (
     <>
       <Suspense>

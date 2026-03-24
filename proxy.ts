@@ -5,16 +5,25 @@ import { getToken } from "next-auth/jwt"
 
 export async function proxy(req: NextRequest) {
   const token = await getToken({ req })
+  const pathname = req.nextUrl.pathname
 
-  // Verifica se a rota atual é /signin (pública)
-  const isAuthPage = req.nextUrl.pathname.startsWith("/signin")
+  // Public routes - no auth required
+  const isAuthPage = pathname.startsWith("/signin") || pathname.startsWith("/signup")
 
-  // Se não há token e a rota é /admin, redireciona para login
-  if (!token && req.nextUrl.pathname.startsWith("/admin")) {
+  // Admin-only routes
+  const isAdminRoute = pathname.startsWith("/admin") || pathname.startsWith("/service/new")
+
+  // If accessing admin routes without token, redirect to signin
+  if (!token && isAdminRoute) {
     return NextResponse.redirect(new URL("/signin", req.url))
   }
 
-  // Se já está autenticado e tenta acessar /signin, redireciona para /admin
+  // If accessing admin routes without admin level, redirect to home
+  if (token && isAdminRoute && token.level !== "admin") {
+    return NextResponse.redirect(new URL("/", req.url))
+  }
+
+  // If already authenticated and trying to access auth pages, redirect to admin
   if (token && isAuthPage) {
     return NextResponse.redirect(new URL("/admin", req.url))
   }
@@ -22,7 +31,6 @@ export async function proxy(req: NextRequest) {
   return NextResponse.next()
 }
 
-// BUG 8 FIX: Include /signin so authenticated users get redirected to /admin
 export const config = {
-  matcher: ["/admin/:path*", "/signin"],
+  matcher: ["/admin/:path*", "/signin", "/signup", "/service/new/:path*"],
 }

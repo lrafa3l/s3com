@@ -3,8 +3,9 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Check } from "lucide-react"
-import { motion } from "framer-motion"
-import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { useState, useRef, useEffect } from "react"
+import { cn } from "@/lib/utils"
 
 const monthlyPlans = [
   {
@@ -68,9 +69,288 @@ const yearlyPlans = monthlyPlans.map((plan) => ({
   savings: plan.price !== "Personalizado" ? "Economize 10%" : "",
 }))
 
+// Animated price component for smooth transitions
+function AnimatedPrice({ price, currency, period }: { price: string; currency: string; period: string }) {
+  return (
+    <div className="mt-2 relative h-12 overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`${price}-${period}`}
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+        >
+          <span className="text-4xl font-bold text-foreground">{price}</span>
+          {currency && <span className="text-lg text-muted-foreground ml-1">{currency}</span>}
+          <span className="text-muted-foreground">/{period}</span>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
+
+// Billing toggle with sliding indicator
+function BillingToggle({
+  billingCycle,
+  setBillingCycle
+}: {
+  billingCycle: "monthly" | "yearly"
+  setBillingCycle: (cycle: "monthly" | "yearly") => void
+}) {
+  const monthlyRef = useRef<HTMLButtonElement>(null)
+  const yearlyRef = useRef<HTMLButtonElement>(null)
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 })
+
+  // Update sliding indicator position when billing cycle changes
+  useEffect(() => {
+    const activeRef = billingCycle === "monthly" ? monthlyRef : yearlyRef
+    if (activeRef.current) {
+      const { offsetLeft, offsetWidth } = activeRef.current
+      setIndicatorStyle({ left: offsetLeft, width: offsetWidth })
+    }
+  }, [billingCycle])
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.2 }}
+      className="mt-8 inline-flex items-center gap-1 rounded-full bg-card/50 backdrop-blur-md border border-brand/20 p-1 shadow-lg relative"
+    >
+      {/* Sliding background indicator */}
+      <motion.div
+        className="absolute h-[calc(100%-8px)] rounded-full bg-gradient-to-r from-brand to-brand-light shadow-lg shadow-brand/20"
+        initial={false}
+        animate={{
+          left: indicatorStyle.left,
+          width: indicatorStyle.width,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 400,
+          damping: 30
+        }}
+      />
+
+      <button
+        ref={monthlyRef}
+        onClick={() => setBillingCycle("monthly")}
+        className={cn(
+          "px-6 py-2 rounded-full font-medium transition-colors duration-200 relative z-10",
+          billingCycle === "monthly"
+            ? "text-white"
+            : "text-muted-foreground hover:text-foreground"
+        )}
+      >
+        Mensal
+      </button>
+      <button
+        ref={yearlyRef}
+        onClick={() => setBillingCycle("yearly")}
+        className={cn(
+          "px-6 py-2 rounded-full font-medium transition-colors duration-200 relative z-10",
+          billingCycle === "yearly"
+            ? "text-white"
+            : "text-muted-foreground hover:text-foreground"
+        )}
+      >
+        Anual
+      </button>
+    </motion.div>
+  )
+}
+
+// Pricing card component
+function PricingCard({
+  plan,
+  index,
+  billingCycle,
+  onSelect
+}: {
+  plan: typeof monthlyPlans[0] & { savings?: string }
+  index: number
+  billingCycle: "monthly" | "yearly"
+  onSelect: (name: string) => void
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      className="h-full"
+    >
+      <Card
+        className={cn(
+          "relative h-full border-border bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-brand/10",
+          plan.popular
+            ? "border-brand ring-2 ring-brand shadow-lg shadow-brand/20"
+            : "hover:border-brand/50"
+        )}
+      >
+        {plan.popular && (
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span className="inline-flex items-center rounded-full bg-gradient-to-r from-brand to-brand-light px-4 py-1 text-xs font-medium text-white shadow-lg">
+              Mais Popular
+            </span>
+          </div>
+        )}
+        {billingCycle === "yearly" && plan.savings && (
+          <div className="absolute top-4 right-4">
+            <span className="text-xs font-semibold text-brand bg-brand/10 px-2 py-1 rounded-full">
+              {plan.savings}
+            </span>
+          </div>
+        )}
+        <CardHeader className="pb-4">
+          <h3 className="text-lg font-semibold text-foreground">{plan.name}</h3>
+          <AnimatedPrice
+            price={plan.price}
+            currency={plan.currency}
+            period={plan.period}
+          />
+          <p className="mt-2 text-sm text-muted-foreground">{plan.description}</p>
+        </CardHeader>
+        <CardContent>
+          <ul className="space-y-3">
+            {plan.features.map((feature, featureIndex) => (
+              <li key={featureIndex} className="flex items-center gap-3">
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-brand/10">
+                  <Check className="h-3 w-3 text-brand" />
+                </div>
+                <span className="text-sm text-muted-foreground">{feature}</span>
+              </li>
+            ))}
+          </ul>
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => onSelect(plan.name)}
+          >
+            <Button
+              className={cn(
+                "mt-8 w-full cursor-pointer",
+                plan.popular
+                  ? "bg-gradient-to-r from-brand to-brand-light text-white border-0 hover:opacity-90 shadow-lg shadow-brand/25"
+                  : "border-brand/30 hover:bg-brand/10"
+              )}
+              variant={plan.popular ? "default" : "outline"}
+            >
+              {plan.cta}
+            </Button>
+          </motion.div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
+}
+
+// Mobile swipeable cards component
+function MobileCarousel({
+  children,
+  activeIndex,
+  setActiveIndex
+}: {
+  children: React.ReactNode[]
+  activeIndex: number
+  setActiveIndex: (index: number) => void
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  // IntersectionObserver to detect active card
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            const index = cardRefs.current.findIndex((ref) => ref === entry.target)
+            if (index !== -1) {
+              setActiveIndex(index)
+            }
+          }
+        })
+      },
+      {
+        root: container,
+        threshold: 0.5,
+      }
+    )
+
+    cardRefs.current.forEach((card) => {
+      if (card) observer.observe(card)
+    })
+
+    return () => observer.disconnect()
+  }, [children.length, setActiveIndex])
+
+  const scrollToCard = (index: number) => {
+    const card = cardRefs.current[index]
+    if (card && scrollRef.current) {
+      const containerWidth = scrollRef.current.offsetWidth
+      const cardWidth = card.offsetWidth
+      const scrollLeft = card.offsetLeft - (containerWidth - cardWidth) / 2
+      scrollRef.current.scrollTo({ left: scrollLeft, behavior: "smooth" })
+    }
+  }
+
+  return (
+    <div className="md:hidden relative overflow-hidden w-full">
+      <div
+        ref={scrollRef}
+        className={cn(
+          "flex overflow-x-scroll overflow-y-hidden scroll-smooth snap-x snap-mandatory",
+          "no-scrollbar items-stretch gap-4",
+          "[WebkitOverflowScrolling:touch]",
+          "px-[7.5vw] pb-4"
+        )}
+      >
+        {children.map((child, index) => (
+          <div
+            key={index}
+            ref={(el) => { cardRefs.current[index] = el }}
+            className={cn(
+              "flex-shrink-0 w-[85vw] snap-center h-full",
+              "transition-all duration-300 ease-out",
+              activeIndex === index
+                ? "scale-100 opacity-100"
+                : "scale-[0.95] opacity-70"
+            )}
+          >
+            {child}
+          </div>
+        ))}
+      </div>
+
+      {/* Dot indicators */}
+      <div className="flex justify-center gap-2 mt-4">
+        {children.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => scrollToCard(index)}
+            aria-label={`Go to card ${index + 1}`}
+            className={cn(
+              "h-2 rounded-full transition-all duration-300",
+              activeIndex === index
+                ? "bg-brand w-6"
+                : "bg-brand/30 hover:bg-brand/50 w-2"
+            )}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export function Pricing() {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly")
+  const [activeCardIndex, setActiveCardIndex] = useState(1) // Start with popular plan
 
   const handlePlanSelection = (planName: string) => {
     setSelectedPlan(planName)
@@ -81,6 +361,16 @@ export function Pricing() {
   }
 
   const plans = billingCycle === "monthly" ? monthlyPlans : yearlyPlans
+
+  const cardElements = plans.map((plan, index) => (
+    <PricingCard
+      key={plan.name}
+      plan={plan}
+      index={index}
+      billingCycle={billingCycle}
+      onSelect={handlePlanSelection}
+    />
+  ))
 
   return (
     <section id="pricing" className="py-20 sm:py-32">
@@ -110,104 +400,25 @@ export function Pricing() {
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-8 inline-flex items-center gap-1 rounded-full bg-card/50 backdrop-blur-md border border-brand/20 p-1 shadow-lg"
-          >
-            <motion.button
-              onClick={() => setBillingCycle("monthly")}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${billingCycle === "monthly"
-                  ? "bg-gradient-to-r from-brand to-brand-light text-white shadow-lg shadow-brand/20"
-                  : "text-muted-foreground hover:text-foreground"
-                }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Mensal
-            </motion.button>
-            <motion.button
-              onClick={() => setBillingCycle("yearly")}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${billingCycle === "yearly"
-                  ? "bg-gradient-to-r from-brand to-brand-light text-white shadow-lg shadow-brand/20"
-                  : "text-muted-foreground hover:text-foreground"
-                }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Anual
-            </motion.button>
-          </motion.div>
+          <BillingToggle
+            billingCycle={billingCycle}
+            setBillingCycle={setBillingCycle}
+          />
         </div>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-3">
-          {plans.map((plan, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Card
-                className={`relative h-full border-border bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-brand/10 ${plan.popular ? "border-brand ring-2 ring-brand shadow-lg shadow-brand/20" : "hover:border-brand/50"
-                  }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="inline-flex items-center rounded-full bg-gradient-to-r from-brand to-brand-light px-4 py-1 text-xs font-medium text-white shadow-lg">
-                      Mais Popular
-                    </span>
-                  </div>
-                )}
-                {billingCycle === "yearly" && plan.savings && (
-                  <div className="absolute top-4 right-4">
-                    <span className="text-xs font-semibold text-brand bg-brand/10 px-2 py-1 rounded-full">
-                      {plan.savings}
-                    </span>
-                  </div>
-                )}
-                <CardHeader className="pb-4">
-                  <h3 className="text-lg font-semibold text-foreground">{plan.name}</h3>
-                  <div className="mt-2">
-                    <span className="text-4xl font-bold text-foreground">{plan.price}</span>
-                    {plan.currency && <span className="text-lg text-muted-foreground ml-1">{plan.currency}</span>}
-                    <span className="text-muted-foreground">/{plan.period}</span>
-                  </div>
-                  <p className="mt-2 text-sm text-muted-foreground">{plan.description}</p>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center gap-3">
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-brand/10">
-                          <Check className="h-3 w-3 text-brand" />
-                        </div>
-                        <span className="text-sm text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handlePlanSelection(plan.name)}
-                  >
-                    <Button
-                      className={`mt-8 w-full cursor-pointer ${plan.popular
-                          ? "bg-gradient-to-r from-brand to-brand-light text-white border-0 hover:opacity-90 shadow-lg shadow-brand/25"
-                          : "border-brand/30 hover:bg-brand/10"
-                        }`}
-                      variant={plan.popular ? "default" : "outline"}
-                    >
-                      {plan.cta}
-                    </Button>
-                  </motion.div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+        {/* Mobile: Swipeable carousel */}
+        <div className="mt-16">
+          <MobileCarousel
+            activeIndex={activeCardIndex}
+            setActiveIndex={setActiveCardIndex}
+          >
+            {cardElements}
+          </MobileCarousel>
+        </div>
+
+        {/* Desktop: Grid layout */}
+        <div className="mt-16 hidden md:grid gap-8 lg:grid-cols-3">
+          {cardElements}
         </div>
       </div>
     </section>

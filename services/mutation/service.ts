@@ -1,8 +1,23 @@
 'use server'
 
 import { prisma } from "@/lib/prisma"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+
+async function requireAdmin() {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    throw new Error("Não autorizado: faça login para continuar")
+  }
+  if (session.user?.level !== "admin") {
+    throw new Error("Não autorizado: permissão de administrador necessária")
+  }
+  return session
+}
 
 export async function createService(form: FormData) {
+  await requireAdmin()
+
   const name = form.get("name") as string
   const description = form.get("description") as string
   const icon = form.get("icon") as string | null
@@ -19,6 +34,8 @@ export async function createService(form: FormData) {
 }
 
 export async function updateService(id: string, form: FormData) {
+  await requireAdmin()
+
   const name = form.get("name") as string
   const description = form.get("description") as string
   const icon = form.get("icon") as string | null
@@ -36,6 +53,8 @@ export async function updateService(id: string, form: FormData) {
 }
 
 export async function deleteService(id: string) {
+  await requireAdmin()
+
   const deletedService = await prisma.service.delete({
     where: { id },
   })

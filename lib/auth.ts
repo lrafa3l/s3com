@@ -55,7 +55,14 @@ const sharedAuthConfig: AuthOptions = {
 
         if (!isValid) throw new Error("Senha incorreta");
 
-        return { id: user.id, email: user.email, twoFactorEnabled: user.twoFactorEnabled }
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+          level: user.level,
+          twoFactorEnabled: user.twoFactorEnabled,
+        }
       },
     }),
   ],
@@ -67,18 +74,28 @@ const sharedAuthConfig: AuthOptions = {
   },
 
   callbacks: {
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user, trigger, session, account }) {
       // Quando o usuário faz login
       if (user) {
         token.id = user.id
         token.email = user.email
         token.name = user.name
         token.picture = user.image
+        token.level = user.level
         token.twoFactorEnabled = user.twoFactorEnabled
         token.totpVerified = !user.twoFactorEnabled // se não tiver 2FA, já vem como verificado
+
+        // For OAuth users, fetch level from database
+        if (account?.provider !== "credentials" && user.id) {
+          const dbUser = await prisma.user.findUnique({
+            where: { id: user.id },
+            select: { level: true },
+          })
+          token.level = dbUser?.level || "user"
+        }
       }
 
-      // ✅ Quando chamamos update() no cliente
+      // Quando chamamos update() no cliente
       if (trigger === "update" && session?.totpVerified !== undefined) {
         token.totpVerified = session.totpVerified
       }
@@ -92,6 +109,7 @@ const sharedAuthConfig: AuthOptions = {
         session.user.email = token.email as string
         session.user.name = token.name as string
         session.user.image = token.picture as string
+        session.user.level = token.level as string
         session.user.twoFactorEnabled = token.twoFactorEnabled
         session.user.totpVerified = token.totpVerified
       }

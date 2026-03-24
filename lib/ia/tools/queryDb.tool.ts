@@ -2,43 +2,30 @@ import { tool } from "ai"
 import z from "zod"
 import { prisma } from "@/lib/prisma"
 
-const tableDescriptions: Record<string, string> = {
-  User: "Tabela de usuários do sistema. Contém dados de login, perfil, permissões e histórico.",
-  Permission: "Tabela de permissões que define o que cada usuário pode ou não acessar.",
-  Report: "Tabela de relatórios de caixa/turno. Registra abertura, fechamento, valores e vendas associadas.",
-  Sales: "Tabela de vendas realizadas. Relaciona usuário, cliente, itens vendidos, métodos de pagamento e total.",
-  CartSales: "Itens individuais de uma venda (carrinho de vendas).",
-  CardSales: "Itens de vendas feitas em cartões (com título/produto atrelado a um cartão).",
-  PayMethod: "Métodos de pagamento usados em uma venda (ex: dinheiro, cartão, pix).",
-  Account: "Contas externas vinculadas ao usuário (OAuth, provedores, etc).",
-  Session: "Sessões ativas de usuários (login, validade do token).",
-  VerificationToken: "Tokens de verificação de email/senha, geralmente temporários.",
-  Stock: "Estoque de produtos. Contém nome, categoria, quantidade, validade, preço de compra e fornecedor.",
-  CartItem: "Itens do carrinho de uma compra (produtos adquiridos de fornecedores).",
-  Purchase: "Compras realizadas junto a fornecedores. Agrupa vários itens do carrinho.",
-  Card: "Cartões personalizados de venda (pacotes ou unidades de produto) vinculados ao usuário e ao estoque.",
-  Price: "Tabela de preços de venda por quantidade (ex: 1 unid = R$5, 2 unid = R$9).",
-  Supplier: "Tabela de fornecedores dos produtos em estoque.",
+// Only allow read access to safe, public models
+const allowedModels: Record<string, string> = {
+  Service: "Serviços oferecidos pela Sara3com. Contém nome, descrição e ícone.",
+  Article: "Artigos e conteúdos do blog. Contém título, slug e conteúdo.",
 }
 
 export const queryDbTool = tool({
-  description: `Executar consultas no banco de dados PostgreSQL usando Prisma.
-  
-Modelos disponíveis: ${Object.keys(tableDescriptions).join(", ")}
+  description: `Consultar dados públicos do banco de dados (somente leitura).
 
-Use esta ferramenta para buscar, criar ou consultar dados específicos das tabelas.
+Modelos disponíveis: ${Object.keys(allowedModels).join(", ")}
 
-NOTA: nao apresenta no fim do pront todos os os dados re reportona eu faca isso no meu front-end
+Use esta ferramenta apenas para buscar informações sobre serviços e artigos.
 `,
   inputSchema: z.object({
-    action: z.enum(["findMany", "findUnique", "create"]).describe("Tipo de operação"),
-    model: z.string().describe("Nome do modelo/tabela"),
-    data: z.any().optional().describe("Dados para a operação (where, create data, etc)"),
+    action: z.enum(["findMany", "findUnique"]).describe("Tipo de operação (somente leitura)"),
+    model: z.enum(["Service", "Article"]).describe("Nome do modelo/tabela"),
+    where: z.object({
+      id: z.string().optional(),
+      slug: z.string().optional(),
+    }).optional().describe("Filtros de busca (id ou slug)"),
   }),
-  async *execute({ action, model, data }) {
+  async *execute({ action, model, where }) {
     try {
-      const allowed = Object.keys(tableDescriptions)
-      if (!allowed.includes(model)) {
+      if (!allowedModels[model]) {
         throw new Error(`Acesso ao modelo "${model}" não permitido.`)
       }
 
@@ -46,22 +33,33 @@ NOTA: nao apresenta no fim do pront todos os os dados re reportona eu faca isso 
         state: "querying" as const,
         model,
         action,
-        description: tableDescriptions[model],
+        description: allowedModels[model],
       }
 
-      const clientModel = (prisma as any)[model]
+      const clientModel = (prisma as any)[model.toLowerCase()]
       if (!clientModel) throw new Error(`Modelo Prisma "${model}" não encontrado.`)
 
       let result
       switch (action) {
         case "findMany":
-          result = await clientModel.findMany({ where: data || {} })
+          result = await clientModel.findMany({
+            where: where || {},
+            take: 50, // Limit results to prevent data exfiltration
+            select: model === "Service"
+              ? { id: true, name: true, description: true, icon: true }
+              : { id: true, title: true, slug: true, content: true, createdAt: true },
+          })
           break
         case "findUnique":
-          result = await clientModel.findUnique({ where: data })
-          break
-        case "create":
-          result = await clientModel.create({ data })
+          if (!where?.id && !where?.slug) {
+            throw new Error("Filtro 'id' ou 'slug' é necessário para findUnique")
+          }
+          result = await clientModel.findUnique({
+            where,
+            select: model === "Service"
+              ? { id: true, name: true, description: true, icon: true }
+              : { id: true, title: true, slug: true, content: true, createdAt: true },
+          })
           break
         default:
           throw new Error(`Ação ${action} não suportada`)
@@ -72,14 +70,15 @@ NOTA: nao apresenta no fim do pront todos os os dados re reportona eu faca isso 
         model,
         action,
         result,
-        description: tableDescriptions[model],
-        ia_responser: "Tai o resultado da sua pesquisa",
+        description: allowedModels[model],
+        ia_responser: "Aqui está o resultado da sua pesquisa",
       }
 
-      return "Consulta bem sucedida, de uma olhada nos resultados ao lado"
-    } catch (err: any) {
-      console.error("[Tool: queryDb] Erro:", err)
-      throw new Error(err.message ?? String(err))
+      return "Consulta bem sucedida"
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err)
+      console.error("[Tool: queryDb] Erro:", message)
+      throw new Error(message)
     }
   },
 })

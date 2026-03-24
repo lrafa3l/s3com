@@ -33,7 +33,7 @@ export async function registerUser({ data }: { data: Prop }) {
       username: data.username,
       email: data.email,
       password: hashedPassword,
-      level: "admin",
+      level: "user",
     },
   })
   return (user);

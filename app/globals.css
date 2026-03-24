@@ -402,10 +402,16 @@
     user-select: none;
   }
 
-  /* Section padding reduction */
-  section {
+  /* Section padding reduction - exclude Sonner toast container */
+  section:not(:has([data-sonner-toaster])):not([aria-label*="Notifications"]) {
     padding-top: 72px !important;
     padding-bottom: 72px !important;
+  }
+
+  /* Explicitly reset Sonner toast container */
+  section:has([data-sonner-toaster]),
+  section[aria-label*="Notifications"] {
+    padding: 0 !important;
   }
 
   /* Back to top button mobile position */
@@ -556,22 +562,53 @@
 }
 
 /* ============================================
-   OVERSIZED WORDMARK FOOTER
+   NO SCROLLBAR UTILITY
    ============================================ */
 
-.wordmark-footer {
-  display: block;
-  font-family: var(--font-sans), system-ui, sans-serif;
-  font-weight: 700;
-  font-size: clamp(80px, 18vw, 260px);
-  white-space: nowrap;
-  letter-spacing: -0.02em;
-  line-height: 0.85;
-  background: linear-gradient(135deg, rgba(var(--color-primary), 0.18), rgba(var(--color-primary), 0.08));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transform: translateY(18%);
-  user-select: none;
-  pointer-events: none;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================
+   SMOOTH LIGHT/DARK MODE TRANSITIONS
+   ============================================ */
+
+/* Global theme transition for all elements */
+*,
+*::before,
+*::after {
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 200ms ease,
+    fill 200ms ease,
+    stroke 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Interactive elements: keep interaction feedback instant */
+button,
+a,
+input,
+select,
+textarea,
+[role="button"],
+[role="switch"] {
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 200ms ease,
+    transform 150ms ease,
+    opacity 150ms ease;
+}
+
+/* Theme toggle: instant icon swap */
+.theme-toggle *,
+.theme-toggle {
+  transition: transform 200ms ease, opacity 150ms ease !important;
 }

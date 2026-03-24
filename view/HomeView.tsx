@@ -21,7 +21,7 @@ export default function HomeView() {
   return (
     <div className="min-h-screen bg-background">
       <ScrollProgress />
-      <Background>
+      {/* <Background> */}
         <FloatingElements />
         <Header />
         <main>
@@ -34,10 +34,10 @@ export default function HomeView() {
           <PartnersSection />
           <ContactSection />
           <Newsletter />
-        </main>
         <Footer />
+        </main>
         <FloatingChatButton />
-      </Background>
+      {/* </Background> */}
     </div>
   )
 }

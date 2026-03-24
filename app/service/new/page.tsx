@@ -11,6 +11,10 @@ export default async function App() {
     if (!session)
         redirect("/signin")
 
+    // Require admin role
+    if (session.user?.level !== "admin")
+        redirect("/")
+
     return (
         <Suspense>
             <HeaderPage

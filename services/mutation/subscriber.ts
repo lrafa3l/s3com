@@ -2,6 +2,19 @@
 
 import { prisma } from "@/lib/prisma"
 import { sendMail } from "@/util/sendMail"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+
+async function requireAdmin() {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    throw new Error("Não autorizado: faça login para continuar")
+  }
+  if (session.user?.level !== "admin") {
+    throw new Error("Não autorizado: permissão de administrador necessária")
+  }
+  return session
+}
 
 export async function subscriber(email: string) {
   if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
@@ -45,10 +58,13 @@ export async function subscriber(email: string) {
 }
 
 export const deleteSubscriberByID = async (id: string) => {
+  await requireAdmin()
   return prisma.subscriber.delete({ where: { id } })
 }
 
 export const deleteSubscribersByIDs = async (ids: string[]) => {
+  await requireAdmin()
+
   if (!ids || ids.length === 0) {
     return {
       success: false,
