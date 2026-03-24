@@ -27,28 +27,31 @@ function BackgroundInner({ children, className }: { children: React.ReactNode; c
   }, [])
 
   return (
-    <div className="animated-bg">
-      <div className="absolute inset-0" />
+    <>
+      {/* Background layer - fixed behind content with -z-10 */}
+      <div className="animated-bg" aria-hidden="true">
+        <div className="absolute inset-0" />
 
-      {particles.map((p, i) => (
-        <div
-          key={i}
-          className="particle absolute"
-          style={{
-            left: `${p.left}%`,
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            animationDelay: `${p.delay}s`,
-            animationDuration: `${p.duration}s`,
-          }}
-        />
-      ))}
+        {particles.map((p, i) => (
+          <div
+            key={i}
+            className="particle absolute"
+            style={{
+              left: `${p.left}%`,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
+              animationDelay: `${p.delay}s`,
+              animationDuration: `${p.duration}s`,
+            }}
+          />
+        ))}
+      </div>
 
-      {/* BUG 12 FIX: Changed from <main> to <div> — HomeView already has <main> */}
+      {/* Content layer - rendered OUTSIDE the fixed background */}
       <div className={cn("relative min-h-screen", className)}>
         {children}
       </div>
-    </div>
+    </>
   )
 }
 

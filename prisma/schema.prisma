@@ -8,9 +8,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// Prisma 7: Connection URL is now configured in lib/prisma.ts via datasourceUrl
+// For migrations, use prisma.config.ts
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {

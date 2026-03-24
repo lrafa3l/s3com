@@ -60,7 +60,7 @@ RootLayout (server)
    - Authenticated → redirect to `/admin`
    - Unauthenticated → render `HomeView`
 
-3. **Middleware** (`middleware.ts`) — runs on `/admin/*` and `/signin`:
+3. **Proxy** (`proxy.ts`) — runs on `/admin/*` and `/signin` (renamed from middleware in Next.js 16):
    - No token + `/admin` → redirect to `/signin`
    - Has token + `/signin` → redirect to `/admin`
 
@@ -191,6 +191,7 @@ export const dashboardTabs = [
 - `searchParams` and `params` in server components are **Promises** — must be awaited
 - `themeColor` must be in a `viewport` export, not in `metadata`
 - `cookies()` and `headers()` are async — always `await` them
+- `middleware.ts` is renamed to `proxy.ts` — function `middleware()` becomes `proxy()`
 
 ### NextAuth v4
 - The adapter/JWT split is intentional — do NOT add the adapter back to `authOptions`
@@ -201,6 +202,12 @@ export const dashboardTabs = [
 - Cold starts can add 2-5s latency on first DB query
 - Connection pooling is via the `-pooler` suffix in the connection string
 - The Prisma client uses `globalThis` caching to avoid creating new clients in dev mode
+
+### Prisma 7
+- The `url` property is no longer supported in `schema.prisma` — connection is passed via adapter
+- Use `@prisma/adapter-pg` with `connectionString` passed to `PrismaPg` constructor
+- Migrations require `prisma/prisma.config.ts` with a `migrate.url()` function
+- See `lib/prisma.ts` for the adapter pattern implementation
 
 ### Environment Variables
 - **Never** use spaces around `=` in `.env` — `KEY="value"` (not `KEY= "value"`)

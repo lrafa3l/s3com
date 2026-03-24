@@ -1,7 +1,9 @@
+// Next.js 16: middleware renamed to proxy
+// See: https://nextjs.org/docs/messages/middleware-to-proxy
 import { NextRequest, NextResponse } from "next/server"
 import { getToken } from "next-auth/jwt"
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const token = await getToken({ req })
 
   // Verifica se a rota atual é /signin (pública)
