@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { motion, AnimatePresence } from "framer-motion"
@@ -65,7 +66,7 @@ export function Header() {
               className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b group-hover:shadow-brand/30 transition-shadow"
             >
               <span className="text-lg font-bold">
-                <img src="/logo.png" alt="sara3com" className="w-10 h-10" />
+                <Image src="/logo.png" alt="sara3com" width={40} height={40} priority />
               </span>
             </motion.div>
             <span className="text-lg font-bold text-foreground hidden sm:block">Sara3com</span>
