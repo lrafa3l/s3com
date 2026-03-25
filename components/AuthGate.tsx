@@ -5,11 +5,15 @@ import { redirect } from "next/navigation"
 import HomeView from "@/view/HomeView"
 
 export default async function AuthGate() {
+  try {
     const session = await getServerSession(authOptions)
-
     if (session) {
-        redirect("/admin")
+      redirect("/admin")
     }
+  } catch (error) {
+    // Session check failed — show home page anyway
+    console.error("AuthGate session error:", error)
+  }
 
-    return <HomeView />
+  return <HomeView />
 }
