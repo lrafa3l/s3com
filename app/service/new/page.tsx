@@ -5,6 +5,9 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
+// Force dynamic rendering - getServerSession uses headers()
+export const dynamic = "force-dynamic"
+
 export default async function App() {
     const session = await getServerSession(authOptions)
 
