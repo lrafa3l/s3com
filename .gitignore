@@ -82,7 +82,7 @@ coverage/
 htmlcov/
 
 #Vercel
-vercel.json
+# vercel.json
 
 # Misc
 .cache/
