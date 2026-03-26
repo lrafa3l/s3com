@@ -14,16 +14,8 @@ export default async function AdminPage({
 }: {
   searchParams?: Promise<Record<string, string | undefined>>
 }) {
-  const session = await getServerSession(authOptions)
   const params = await searchParams
   const tab = params?.tab ?? "subscriber"
-
-  if (!session)
-    redirect("/signin")
-
-  // Require admin role
-  if (session.user?.level !== "admin")
-    redirect("/")
 
   return (
     <>

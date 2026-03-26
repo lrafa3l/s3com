@@ -64,7 +64,7 @@ Se ativou a verificação em dois passos, após o login será solicitado um cód
 | Canal | Informação |
 |---|---|
 | **Fax** |  +244 223 510 0002 |
-| **Telemóvel** | +244 932 230 002 / +244 223 510 006 / +244 223 510 004 |
+| **Telemóvel** | +244 223 513 333 / +244 223 510 006 / +244 223 510 004 |
 | **Email** | communications@sara3com.co.ao / support@sara3com.co.ao|
 | **Morada** | Rua 30, Benfica, Luanda — Angola |
 | **Caixa Postal** | 7140 |
@@ -126,7 +126,7 @@ Estamos localizados na Rua 28, Benfica, Luanda — Angola.
 **Sara3com — Conectando Angola ao futuro digital com soluções inovadoras em telecomunicações.**
 
 - 📠 Fax: +244 223 510 0002
-- 📱 Telemóvel: +244 932 230 002 / +244 223 510 006 / +244 223 510 004
+- 📱 Telemóvel: +244 223 513 333 / +244 223 510 006 / +244 223 510 004
 - 📧 Email: support@sara3com.co.ao / communications@sara3com.co.ao
 - 📮 Caixa Postal: 7140
 - 📍 Morada: Rua 30, Benfica, Luanda — Angola

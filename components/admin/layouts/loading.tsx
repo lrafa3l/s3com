@@ -7,7 +7,7 @@ export default function Loading({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        `absolute left-0 top-0 w-full h-[calc(100vh-71px)] flex justifycenter items-center flex-col gap-4`,
+        `absolute left-0 top-0 w-full h-[calc(100vh-71px)] flex justify-center items-center flex-col gap-4`,
         className
       )}
     >
@@ -33,10 +33,7 @@ export default function Loading({ className }: { className?: string }) {
         />
       </div>
       <span
-        className="text-primary font-mono text-[11px] tracking-[0.25em] uppercase inline-block"
-        style={{
-          animation: "logo-pulse-scale 1.8s ease-in-out infinite",
-        }}
+        className="text-primary font-mono text-[11px] tracking-[0.25em] uppercase inline-block mt-6"
       >
         Carregando...
       </span>

@@ -13,7 +13,7 @@ export default function Dashboard({
   return (
     <Tabs
       defaultValue="subscriber"
-      className={cn("w-full gap-0 bg-sidebar h-[calc(100vh-70px)]", className)}
+      className={cn("w-full gap-0 bg-sidebar h-[calc(100vh-70px)] relative", className)}
     >
       <div className="sticky top-0 z-10 flex justify-between bg-card h-[50px] border-b-1 border-muted px-4 sm:px-8 max-w-full overflow-y-hidden overflow-x-auto no-scrollbar">
         <TabsList className="flex bg-card border-b- items-center h-[50px] gap-1 m-auto max-w-5xl w-full justify-between select-none">

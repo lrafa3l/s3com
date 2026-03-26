@@ -30,7 +30,7 @@ Contexto:
 Contato da empresa:
 - Telefone: +244 223 510 006 | +244 223 510 004
 - Fax: +244 223 510 0002
-- Telemóvel: +244 932 230 002
+- Telemóvel: +244 223 513 333
 - Email: communications@sara3com.co.ao | support@sara3com.co.ao
 - Caixa Postal: 7140
 - Localização: Rua 30, Bairro Benfica, Luanda – Angola

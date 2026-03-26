@@ -58,19 +58,19 @@ export default function HeaderPage({
           >
             <div className="relative" style={{ width: 40, height: 40 }}>
               {/* Outer spinning ring */}
-              {!loaded && (
+              {/* {!loaded && (
                 <div
                   className="loader-ring-outer absolute rounded-full"
                   style={{ inset: -4 }}
                 />
-              )}
+              )} */}
               {/* Inner counter-spinning ring */}
-              {!loaded && (
+              {/* {!loaded && (
                 <div
                   className="loader-ring-inner absolute rounded-full"
                   style={{ inset: -8 }}
                 />
-              )}
+              )} */}
               <Image
                 src={"/logo.png"}
                 id="bigLogo"

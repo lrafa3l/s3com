@@ -213,7 +213,7 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 text-brand flex-shrink-0" />
-                <span>+244 223 510 006 | +244 223 510 004 | +244 932 230 002</span>
+                <span>+244 223 510 006 | +244 223 510 004 | +244 223 513 333</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 text-brand flex-shrink-0" />

@@ -278,7 +278,7 @@ export function ContactSection() {
                 <div>
                   <h4 className="text-lg font-semibold text-foreground">Contacte-nos</h4>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    +244 932 230 002
+                    +244 223 513 333
                     <br />
                     +244 223 510 002
                   </p>
