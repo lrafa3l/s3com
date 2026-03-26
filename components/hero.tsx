@@ -154,7 +154,7 @@ export function Hero() {
           </motion.div>
           <motion.div className="flex items-center gap-2 hover:text-foreground transition-colors" whileHover={{ x: 5 }}>
             <Clock className="h-4 w-4 text-brand" />
-            <span>Seg-Sex, 8:00-18:00</span>
+            <span>Seg-Sex, 8:00-17:00</span>
           </motion.div>
         </div>
       </motion.div>
