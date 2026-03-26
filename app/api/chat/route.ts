@@ -33,7 +33,7 @@ Contato da empresa:
 - Telemóvel: +244 932 230 002
 - Email: neide.costa@sara3com.co.ao
 - Caixa Postal: 7140
-- Localização: Benfica, Luanda – Angola
+- Localização: Rua 30, Bairro Benfica, Luanda – Angola
 
 Seu objetivo é transformar cada conversa em uma experiência informativa e acolhedora.
 

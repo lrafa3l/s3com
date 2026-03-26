@@ -63,11 +63,10 @@ Se ativou a verificação em dois passos, após o login será solicitado um cód
 
 | Canal | Informação |
 |---|---|
-| **Telefone** | +244 223 510 002 |
-| **Fax** | +244 223 510 004 |
-| **Telemóvel** | +244 932 230 002 |
-| **Email** | neide.costa@sara3com.co.ao |
-| **Morada** | Rua 28, Benfica, Luanda — Angola |
+| **Fax** |  +244 223 510 0002 |
+| **Telemóvel** | +244 932 230 002 / +244 223 510 006 / +244 223 510 004 |
+| **Email** | communications@sara3com.co.ao / support@sara3com.co.ao|
+| **Morada** | Rua 30, Benfica, Luanda — Angola |
 | **Caixa Postal** | 7140 |
 
 ---
@@ -124,13 +123,12 @@ Estamos localizados na Rua 28, Benfica, Luanda — Angola.
 
 ## Informações de Contacto
 
-**Sara3com — Tecnologia que Protege e Transforma o Futuro**
+**Sara3com — Conectando Angola ao futuro digital com soluções inovadoras em telecomunicações.**
 
-- 📞 Telefone: +244 223 510 002
-- 📠 Fax: +244 223 510 004
-- 📱 Telemóvel: +244 932 230 002
-- 📧 Email: neide.costa@sara3com.co.ao
+- 📠 Fax: +244 223 510 0002
+- 📱 Telemóvel: +244 932 230 002 / +244 223 510 006 / +244 223 510 004
+- 📧 Email: support@sara3com.co.ao / communications@sara3com.co.ao
 - 📮 Caixa Postal: 7140
-- 📍 Morada: Rua 28, Benfica, Luanda — Angola
+- 📍 Morada: Rua 30, Benfica, Luanda — Angola
 - 🌐 Website: [sara3com.co.ao](https://sara3com.co.ao)
 - 🕐 Horário: Seg–Sex, 8:00–18:00
