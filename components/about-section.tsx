@@ -16,22 +16,22 @@ const values = [
   {
     title: "Inovação",
     description: "Tecnologia de ponta que transforma ideias em soluções reais",
-    icon: "🚀",
+    icon: "",
   },
   {
     title: "Confiabilidade",
     description: "Serviços 24/7 com uptime de 99.9%",
-    icon: "🛡️",
+    icon: "",
   },
   {
     title: "Excelência",
     description: "Qualidade premium em cada projeto",
-    icon: "⭐",
+    icon: "",
   },
   {
     title: "Parcerias",
     description: "Relacionamento de longo prazo",
-    icon: "🤝",
+    icon: "",
   },
 ]
 

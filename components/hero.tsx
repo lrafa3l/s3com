@@ -73,7 +73,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl text-balance"
           >
-            Acreditamos no{" "}
+            Conectando Angola ao {" "}
             <br></br>
             <span className="bg-gradient-to-r from-brand via-brand-light to-brand bg-clip-text text-transparent animate-pulse">
               <TypeIt
@@ -83,11 +83,11 @@ export function Hero() {
                 }}
                 getBeforeInit={(instance) => {
                   instance
-                    .type("Futuro Inteligenbrt")
+                    .type("Futuro DigiAI.")
                     .pause(800)
                     .delete(2)
                     .pause(400)
-                    .type("nte")
+                    .type("ital")
                     .go();
                   return instance;
                 }}
@@ -146,11 +146,11 @@ export function Hero() {
         <div className="flex flex-wrap justify-center gap-6 md:gap-12 text-muted-foreground text-sm">
           <motion.div className="flex items-center gap-2 hover:text-foreground transition-colors" whileHover={{ x: 5 }}>
             <MapPin className="h-4 w-4 text-brand" />
-            <span>Rua 28, Benfica, Luanda</span>
+            <span>Rua 30, Benfica, Luanda</span>
           </motion.div>
           <motion.div className="flex items-center gap-2 hover:text-foreground transition-colors" whileHover={{ x: 5 }}>
             <Phone className="h-4 w-4 text-brand" />
-            <span>+244 932 230 002</span>
+            <span>+244 932 230 002 </span>
           </motion.div>
           <motion.div className="flex items-center gap-2 hover:text-foreground transition-colors" whileHover={{ x: 5 }}>
             <Clock className="h-4 w-4 text-brand" />

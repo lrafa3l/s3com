@@ -28,10 +28,10 @@ Contexto:
 - Valores: inovação, segurança, desempenho e suporte humano.
 
 Contato da empresa:
-- Telefone: +244 223 510 002
-- Fax: +244 223 510 004
+- Telefone: +244 223 510 006 | +244 223 510 004
+- Fax: +244 223 510 0002
 - Telemóvel: +244 932 230 002
-- Email: neide.costa@sara3com.co.ao
+- Email: communications@sara3com.co.ao | support@sara3com.co.ao
 - Caixa Postal: 7140
 - Localização: Rua 30, Bairro Benfica, Luanda – Angola
 
